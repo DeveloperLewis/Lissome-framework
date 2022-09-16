@@ -5,8 +5,8 @@ namespace classes;
     class Router {
 
         //Handlers holds all the functions that you provide when routing.
-        private $handlers = [];
-        private $notFound;
+        private array $handlers = [];
+        private string $notFound;
         private const get = 'GET';
         private const post = 'POST';
         

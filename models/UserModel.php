@@ -2,7 +2,7 @@
 
 namespace classes\models\user;
 
-    class User {
+    class UserModel {
 
         //Properties of the user
         public $firstName;
