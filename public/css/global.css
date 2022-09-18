@@ -1,0 +1,32 @@
+body {
+    background-color: #2A2E32;
+}
+
+/* Colour Scheming */
+.colour-light-dark {
+    background-color: #2A2E32;
+}
+
+.colour-dark {
+    background-color: #212529;
+}
+
+.bg-transparent {
+    background: transparent;
+}
+
+.dark-input {
+    background-color: #2A2E32;
+    border-color: #1B1E22;
+    caret-color: white;
+    color: white;
+}
+
+.dark-input:focus {
+    background-color: #2A2E32;
+    border-color: #1B1E22;
+}
+
+.remove-underline {
+    text-decoration: none;
+}
