@@ -35,7 +35,6 @@ class Router
         ];
     }
 
-
     public function run(): void
     {
         //Get url that the request is coming from

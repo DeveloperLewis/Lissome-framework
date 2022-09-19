@@ -11,9 +11,9 @@
         <div class="card bg-dark text-white mt-5 mx-2">
             <div class="container">
                 <div class="m-4">
-                    <h3 class="text-center">Register Account</h3>
+                    <h3 class="text-center">Login</h3>
                 </div>
-                <form>
+                <form action="/user/login" method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control dark-input" name="username" id="password">

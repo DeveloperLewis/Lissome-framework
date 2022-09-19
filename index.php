@@ -4,7 +4,7 @@ $router = new \classes\server\Router();
 
 //Standard & Basic routes
 $router->get('/', function () {
-    require_once('views/index.php');
+    require_once('controllers/index.php');
 });
 
 $router->notFound(function () {

@@ -25,7 +25,10 @@ body {
 .dark-input:focus {
     background-color: #2A2E32;
     border-color: #1B1E22;
+    caret-color: white;
+    color: white;
 }
+
 
 .remove-underline {
     text-decoration: none;
