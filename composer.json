@@ -1,7 +1,9 @@
 {
     "autoload": {
         "psr-4": {
-            "classes\\": "classes/"
+            "classes\\": "classes/",
+            "models\\": "models/",
+            "migrations\\": "migrations/"
         },
         "files": ["functions.php"]
     },

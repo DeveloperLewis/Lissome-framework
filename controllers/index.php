@@ -1,4 +1,5 @@
 <?php
-$con = new \classes\server\Controller();
-$con->setView("index");
-$con->get(fn() => $con->view());
+session_start();
+$controller = new \classes\server\Controller();
+$controller->setView("index");
+$controller->get(fn() => $controller->view());

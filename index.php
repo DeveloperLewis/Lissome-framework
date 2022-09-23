@@ -2,6 +2,8 @@
 require_once('vendor/autoload.php');
 $router = new \classes\server\Router();
 
+require_once('init.php');
+
 //Standard & Basic routes
 $router->get('/', function () {
     require_once('controllers/index.php');
