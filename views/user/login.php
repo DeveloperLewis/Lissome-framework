@@ -22,11 +22,13 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control dark-input" name="password" id="password">
                     </div>
-                    <p class="text-muted"><a href="/user/forgot-password" class="remove-underline">Forgot Password?</a></p>
+                    <p class="text-muted"><a href="/user/forgot-password" class="remove-underline">Forgot Password?</a>
+                    </p>
                     <div class="mt-2 mb-2 d-flex justify-content-center">
                         <button class="btn btn-primary flex-fill" type="submit">Login</button>
                     </div>
-                    <p class="text-center">Don't have an account yet? <a href="/user/register" class="remove-underline">Register here</a></p>
+                    <p class="text-center">Don't have an account yet? <a href="/user/register" class="remove-underline">Register
+                            here</a></p>
                 </form>
             </div>
         </div>

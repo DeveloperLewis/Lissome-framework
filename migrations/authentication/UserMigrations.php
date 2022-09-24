@@ -10,7 +10,8 @@ class UserMigrations
     /**
      * @throws Exception
      */
-    public function createTable(): string {
+    public function createTable(): string
+    {
         $database = new Database();
         $pdo = $database->getPdo();
 

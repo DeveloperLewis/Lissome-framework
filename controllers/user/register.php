@@ -3,68 +3,90 @@ session_start();
 $controller = new \classes\server\Controller();
 $controller->setView("user/register");
 $controller->get(function() use ($controller) {
-    if (isset($_SESSION['errors']))
-    {
-        $errors = $_SESSION['errors'];
+    if (isset($_SESSION['values'])) {
+        $vars["username"] = $_SESSION['values']['username'];
+        $vars["email"] = $_SESSION['values']['email'];
+        unset($_SESSION['values']);
     }
+
+    $controller->view($vars ?? null);
 });
 
-$controller->post(function() {
+$controller->post(function () {
 
     //Check for empty POST inputs
     $empty_errors = [];
-    if (empty($_POST["username"]))
-    {
+    if (empty($_POST["username"])) {
         $empty_errors[] = "The username is empty";
     }
 
-    if (empty($_POST["email"]))
-    {
+    if (empty($_POST["email"])) {
         $empty_errors[] = "The email is empty";
     }
 
-    if (empty($_POST["password"]))
-    {
+    if (empty($_POST["password"])) {
         $empty_errors[] = "The password is empty";
     }
 
-    if (empty($_POST["repeat-password"]))
-    {
+    if (empty($_POST["repeat-password"])) {
         $empty_errors[] = "The repeat password is empty";
     }
 
-    if (empty($_POST["checkbox"]))
-    {
+    if (!isset($_POST["checkbox"])) {
         $empty_errors[] = "You must agree to the privacy policy to signup";
     }
 
-    if (!empty($empty_errors))
-    {
-        sendWithErrors("/user/register", $empty_errors);
-    }
-
+    //Set to variables
     $username = $_POST["username"];
     $email = $_POST["email"];
     $password = $_POST["password"];
     $repeat_password = $_POST["repeat-password"];
 
+    //Validate variables and check for any errors
     $user = new \classes\authentication\User();
     $username_errors = $user->validateUsername($username);
     $email_errors = $user->validateEmail($email);
     $password_errors = $user->validatePassword($password, $repeat_password);
 
-    if (!empty($username_errors))
-    {
-        sendWithErrors("/user/register", $username_errors);
+    //Start sessions for any errors and return to form with errors
+    if (!empty($empty_errors) || !empty($username_errors) || !empty($email_errors) || !empty($password_errors)) {
+        if (!empty($username_errors)) {
+            $_SESSION['errors']['username_errors'] = $username_errors;
+        }
+
+        if (!empty($email_errors)) {
+            $_SESSION['errors']['email_errors'] = $email_errors;
+        }
+
+        if (!empty($password_errors)) {
+            $_SESSION['errors']['password_errors'] = $password_errors;
+        }
+
+        if (!empty($empty_errors)) {
+            $_SESSION['errors']['empty_errors'] = $empty_errors;
+        }
+
+        $_SESSION['values']['username'] = $username;
+        $_SESSION['values']['email'] = $email;
+        redirect("/user/register");
+        die();
     }
 
-    if (!empty($email_errors))
-    {
-        sendWithErrors("/user/register", $email_errors);
+    //Create new model of user
+    $userModel = new \models\authentication\UserModel();
+    $userModel->create($username, $email, $password, dateAndTime());
+
+    //Store user in the database
+    try {
+        $userModel->store();
+    } catch (Exception $e) {
+        error_log($e);
+        $_SESSION['errors']['store_errors'] = [$e];
+        redirect("/user/register");
+        die();
     }
 
-    if (!empty($password_errors))
-    {
-        sendWithErrors("/user/register", $password_errors);
-    }
+    $_SESSION['success'] = "Successfully created account!";
+    redirect("/user/register");
+    die();
 });

@@ -19,16 +19,17 @@ class Database
 
     private array $options = [
 
-        \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
+        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
         \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-        \PDO::ATTR_EMULATE_PREPARES   => false
+        \PDO::ATTR_EMULATE_PREPARES => false
 
     ];
 
     private $pdo = null;
 
     //Upon creating a database object, it will connect to the database.
-    public function __construct(){
+    public function __construct()
+    {
         $dsn = "$this->type:host=$this->server;dbname=$this->db;port=$this->port;charset=$this->charset";
 
         try {
@@ -39,9 +40,8 @@ class Database
     }
 
     //Here you can get the pdo object from the database object so that you can do database queries, etc...
-    public function getPdo() {
+    public function getPdo()
+    {
         return $this->pdo;
     }
 }
-
-?>

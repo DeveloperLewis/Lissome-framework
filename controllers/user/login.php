@@ -2,4 +2,4 @@
 session_start();
 $controller = new \classes\server\Controller();
 $controller->setView('user/login');
-$controller->get(fn()=>$controller->view());
+$controller->get(fn() => $controller->view());

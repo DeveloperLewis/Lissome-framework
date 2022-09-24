@@ -6,8 +6,7 @@ $password = "";
 
 try {
     $pdo = new PDO("mysql:host=$host", $username, $password);
-}
-catch (PDOException $e) {
+} catch (PDOException $e) {
     die("DB ERROR: " . $e->getMessage());
 }
 

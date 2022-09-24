@@ -6,23 +6,27 @@ class Controller
 {
     protected string $view;
 
-    public function get(callable $callback): void {
+    public function get(callable $callback): void
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $callback();
         }
     }
 
-    public function post(callable $callback): void {
+    public function post(callable $callback): void
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $callback();
         }
     }
 
-    public function setView(string $viewLocation): void {
+    public function setView(string $viewLocation): void
+    {
         $this->view = $viewLocation;
     }
 
-    public function view(): void {
+    public function view($variables = null): void
+    {
         require_once('views/' . $this->view . '.php');
     }
 }

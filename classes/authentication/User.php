@@ -5,7 +5,8 @@ namespace classes\authentication;
 class User
 {
     //Checks validations for the username and then sends back an empty array or with errors
-    public function validateUsername($username): array {
+    public function validateUsername($username): array
+    {
         $username_errors = [];
 
         if (strlen($username) < 3) {
@@ -24,7 +25,8 @@ class User
     }
 
     //Checks validations for the email and then sends back an empty array or with errors
-    public function validateEmail($email): array {
+    public function validateEmail($email): array
+    {
         $email_errors = [];
 
         if (strlen($email) < 3) {
@@ -43,11 +45,11 @@ class User
     }
 
     //Checks validations for the password and then sends back an empty array or with errors
-    public function validatePassword($password, $repeat_password): array {
+    public function validatePassword($password, $repeat_password): array
+    {
         $password_errors = [];
 
-        if ($password != $repeat_password)
-        {
+        if ($password != $repeat_password) {
             $password_errors['match'] = "Password does not match repeat password";
         }
 
@@ -80,15 +82,5 @@ class User
         };
 
         return $password_errors;
-    }
-
-    public function createModel($username, $email, $password, $account_creation_date): object {
-        $userModel = new \models\authentication\UserModel();
-        $userModel->username = $username;
-        $userModel->email = $email;
-        $userModel->password = password_hash($password, PASSWORD_DEFAULT);
-        $userModel->account_creation_date = dateAndTime();
-
-        return $userModel;
     }
 }
