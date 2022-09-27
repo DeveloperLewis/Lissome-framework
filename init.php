@@ -20,10 +20,23 @@ try {
     error_log($e);
 }
 
-//Create the user table
+$user_migrations = new \migrations\authentication\UserMigrations();
+
+//Create the user table and alter table
 try {
-    $user_migrations = new \migrations\authentication\UserMigrations();
     $user_migrations->createTable();
+} catch (Exception $e) {
+    error_log($e);
+}
+
+try {
+    $user_migrations->alterPrimaryKey();
+} catch (Exception $e) {
+    error_log($e);
+}
+
+try {
+    $user_migrations->alterAutoIncrement();
 } catch (Exception $e) {
     error_log($e);
 }

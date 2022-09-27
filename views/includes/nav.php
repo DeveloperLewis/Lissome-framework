@@ -10,6 +10,9 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item text-center">
+                    <a class="nav-link" href="/docs">Docs</a>
+                </li>
+                <li class="nav-item text-center">
                     <a class="nav-link" href="/user/login">Login</a>
                 </li>
                 <li class="nav-item text-center">

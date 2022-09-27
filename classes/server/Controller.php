@@ -25,7 +25,7 @@ class Controller
         $this->view = $viewLocation;
     }
 
-    public function view($variables = null): void
+    public function view($vars = null, $errors_array = null): void
     {
         require_once('views/' . $this->view . '.php');
     }

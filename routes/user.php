@@ -13,5 +13,5 @@ $router->get('/user/login', function () {
 });
 
 $router->post('/user/login', function () {
-    require_once('controllers/user/register.php');
+    require_once('controllers/user/login.php');
 });

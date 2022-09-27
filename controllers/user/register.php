@@ -9,7 +9,17 @@ $controller->get(function() use ($controller) {
         unset($_SESSION['values']);
     }
 
-    $controller->view($vars ?? null);
+    if (isset($_SESSION['errors'])) {
+        $errors_array = $_SESSION['errors'];
+        unset($_SESSION['errors']);
+    }
+
+    if (isset($_SESSION['success'])) {
+        $vars["success"] = $_SESSION['success'];
+        unset($_SESSION['success']);
+    }
+
+    $controller->view($vars ?? null, $errors_array ?? null);
 });
 
 $controller->post(function () {
@@ -86,7 +96,7 @@ $controller->post(function () {
         die();
     }
 
-    $_SESSION['success'] = "Successfully created account!";
+    $_SESSION['success'] = 'Successfully created account. <a href="/user/login" class="remove-underline">Login here.</a>';
     redirect("/user/register");
     die();
 });

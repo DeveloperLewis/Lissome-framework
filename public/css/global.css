@@ -1,3 +1,4 @@
+/* Global */
 body {
     background-color: #2A2E32;
     overflow-x: hidden;
@@ -30,7 +31,22 @@ body {
     color: white;
 }
 
+/* Fonts */
 
+* {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}
+
+.lato-strong {
+    font-weight: 700;
+}
+
+.lato-light {
+    font-weight: 200;
+}
+
+/* General */
 .remove-underline {
     text-decoration: none;
 }

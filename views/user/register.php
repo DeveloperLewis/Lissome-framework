@@ -15,36 +15,21 @@
                 </div>
 
                 <?php
-                    //Error and success messages
-                    if (isset($_SESSION['errors'])) {
-                        foreach ($_SESSION['errors'] as $errors) {
-                            foreach ($errors as $error) {
-                                echo '<div class="text-center">';
-                                echo '<small class="text-danger">' . $error . '</small>';
-                                echo '</div>';
-                            }
-                        }
-                        unset($_SESSION['errors']);
-                    }
-
-                    if (isset($_SESSION['success'])) {
-                        echo '<div class="text-center">';
-                        echo '<small class="text-success">' . $_SESSION['success'] . '</small>';
-                        echo '</div>';
-                        unset($_SESSION['success']);
-                    }
+                    //Errors and Success Messages
+                    showErrors($errors_array ?? "");
+                    showSuccess($vars['success'] ?? "");
                 ?>
 
                 <form action="/user/register" method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control dark-input" name="username" id="username"
-                               value="<?= $var["username"] ?? "" ?>">
+                               value="<?= $vars["username"] ?? "" ?>">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Address</label>
                         <input type="email" class="form-control dark-input" name="email" id="email"
-                               value="<?= $var["email"] ?? "" ?>">
+                               value="<?= $vars["email"] ?? "" ?>">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>

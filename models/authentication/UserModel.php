@@ -7,11 +7,11 @@ use Exception;
 
 class UserModel
 {
-    protected int $user_id;
-    protected string $username;
-    protected string $email;
-    protected string $password;
-    protected string $account_creation_date;
+    public int $user_id;
+    public string $username;
+    public string $email;
+    public string $password;
+    public string $account_creation_date;
 
     public function create($username, $email, $password, $account_creation_date, $user_id = 0): void
     {
@@ -34,4 +34,22 @@ class UserModel
         return "Successfully stored user in the database";
     }
 
+    public function authenticate(): int {
+        $database = new Database();
+        $stmt = $database->getPdo()->prepare("SELECT * FROM users WHERE email = ?");
+
+        if (!$stmt->execute([$this->email])) {
+            throw new Exception("SQL statement could not be executed");
+        }
+
+        if (!$user = $stmt->fetch()) {
+            throw new Exception("User could not be fetched from the database.");
+        }
+
+        if (!password_verify($this->password, $user["password"])) {
+            throw new Exception("Password did not match hashed password in database.");
+        }
+
+        return $user["user_id"];
+    }
 }
