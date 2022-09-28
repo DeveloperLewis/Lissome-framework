@@ -34,7 +34,7 @@ class UserModel
         return "Successfully stored user in the database";
     }
 
-    public function authenticate(): int {
+    public function authenticate(): string {
         $database = new Database();
         $stmt = $database->getPdo()->prepare("SELECT * FROM users WHERE email = ?");
 
@@ -50,6 +50,25 @@ class UserModel
             throw new Exception("Password did not match hashed password in database.");
         }
 
-        return $user["user_id"];
+        $this->user_id = $user["user_id"];
+
+        return "Successfully authenticated the user and set the user_id property";
+    }
+
+    public function get(): string {
+        $database = new Database();
+        $stmt = $database->getPdo()->prepare("SELECT * FROM users WHERE user_id = ?");
+
+        if (!$stmt->execute([$this->user_id])) {
+            throw new Exception("Failed to execute the get by user_id statement.");
+        }
+
+        if (!$user = $stmt->fetch()) {
+            throw new Exception("Failed to fetch the user from the database");
+        }
+
+        $this->create($user["username"], $user["email"], $user["password"], $user["account_creation_date"], $user["user_id"]);
+
+        return "Successfully created the userModel and filled properties.";
     }
 }

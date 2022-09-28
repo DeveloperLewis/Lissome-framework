@@ -1,5 +1,4 @@
 <?php
-session_start();
 $controller = new \classes\server\Controller();
 $controller->setView("user/register");
 $controller->get(function() use ($controller) {

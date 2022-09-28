@@ -42,3 +42,11 @@ function showSuccess($success): void {
     echo '<small class="text-success">' . $success . '</small>';
     echo '</div>';
 }
+
+function isLoggedIn(): bool {
+    if (!isset($_SESSION['user'])) {
+        return false;
+    }
+
+    return true;
+}

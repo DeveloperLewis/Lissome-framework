@@ -2,8 +2,8 @@
 <html lang="en">
 <?php require_once('includes/header.php'); ?>
 <body>
-
-<div class="text-center">
+<?php require_once('includes/nav.php'); ?>
+<div class="text-center text-white mt-5">
     <h1>404, Page not found.</h1>
 </div>
 

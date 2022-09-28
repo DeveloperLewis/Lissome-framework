@@ -13,10 +13,16 @@
                 <div class="m-4">
                     <h3 class="text-center">Login</h3>
                 </div>
+
+                <?php
+                //Errors
+                showErrors($errors_array ?? "");
+                ?>
+
                 <form action="/user/login" method="POST">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control dark-input" name="username" id="password">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="text" class="form-control dark-input" name="email" id="email">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>

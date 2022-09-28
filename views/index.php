@@ -9,6 +9,14 @@
     <h4 class="lato-light">Lissome is a slim and fast php framework for building MVC applications. </h4>
 </div>
 
+<?php
+if (isloggedIn()) {
+    echo '<p class="text-center text-white">';
+    echo 'You are logged in, ';
+    echo  $vars["username"] ?? "";
+    echo '</p>';
+}
+?>
 
 <?php require_once('includes/footer.php'); ?>
 </body>
