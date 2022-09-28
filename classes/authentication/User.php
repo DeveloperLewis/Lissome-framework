@@ -2,6 +2,9 @@
 
 namespace classes\authentication;
 
+use classes\server\Database;
+use Exception;
+
 class User
 {
     //Checks validations for the username and then sends back an empty array or with errors
@@ -39,6 +42,15 @@ class User
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $email_errors['invalid'] = "This email address is not valid.";
+        }
+
+        try {
+            if (!$this->isEmailUnique($email)) {
+                $email_errors['unique'] = "Email is already taken.";
+            }
+        } catch (Exception $e) {
+            error_log($e);
+            $email_errors['internal'] = "There was an internal error, please try again.";
         }
 
         return $email_errors;
@@ -82,5 +94,21 @@ class User
         };
 
         return $password_errors;
+    }
+
+    //Return whether the email is unique within the database.
+    public function isEmailUnique($email): bool {
+        $database = new Database();
+        $stmt = $database->getPdo()->prepare("SELECT email FROM users WHERE email = ?");;
+
+        if (!$stmt->execute([$email])) {
+            throw new Exception("Failed to execute the statement to check if email is unique.");
+        }
+
+        if (empty($stmt->fetch())) {
+            return true;
+        }
+
+        return false;
     }
 }
