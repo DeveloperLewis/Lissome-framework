@@ -42,6 +42,42 @@ $controller->post(function() {
         die();
     }
 
+    try {
+        $token = bin2hex(random_bytes(16));
+    } catch (\Exception $e) {
+        error_log($e);
+    }
+
+    //Create an instance; passing `true` enables exceptions
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->isSMTP();
+        $mail->Host       = 'YOUR HOST';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'YOUR USERNAME';
+        $mail->Password   = 'YOUR PASSWORD';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port       = 465;
+
+        //Recipients
+        $mail->setFrom('FROM@YOUREMAIL.COM', 'MAILER');
+        $mail->addAddress($email);
+
+        //Content
+        $body = '<p>Please click here to <a href="/user/reset_password/reset?token=">reset your password</a></p>';
+        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->Subject = "Password Reset";
+        $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+        $mail->send();
+    } catch (Exception $e) {
+        error_log($e);
+        error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+    }
+
     $_SESSION['success'] = 'If the email exists, Please allow up to 30 minutes for an email to sent. Although this should be near instant.';
     redirect("/user/reset_password");
 });
