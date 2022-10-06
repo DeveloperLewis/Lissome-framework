@@ -15,19 +15,28 @@
                 </div>
 
                 <?php
-                    //Errors and Success Messages
-                    showErrors($errors_array ?? "");
-                    showSuccess($vars['success'] ?? "");
+                //Errors and Success Messages
+                showErrors($errors_array ?? "");
+                showSuccess($vars['success'] ?? "");
                 ?>
 
                 <form action="/user/reset_password" method="POST">
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="text" class="form-control dark-input" name="email" id="email">
+                        <label for="token" class="form-label">Token</label>
+                        <input type="text" class="form-control dark-input" name="token" id="token">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">New Password</label>
+                        <input type="password" class="form-control dark-input" name="password" id="password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="repeat_password" class="form-label">Repeat New Password</label>
+                        <input type="password" class="form-control dark-input" name="repeat_password" id="repeat_password">
                     </div>
 
                     <div class="mb-2 float-end">
-                        <button class="btn btn-primary" type="submit">Send Link</button>
+                        <button class="btn btn-primary" type="submit">Reset Password</button>
                     </div>
 
                     <div class="mb-2 float-start">

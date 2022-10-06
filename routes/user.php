@@ -34,16 +34,30 @@ $router->get('/user/logout', function () use ($middleware) {
     require_once('controllers/user/logout.php');
 });
 
-$router->get('/user/reset_password', function () {
+$router->get('/user/forgot_password', function () {
     if (isLoggedIn()) {
         redirect("/");
     }
-    require_once('controllers/user/reset_password.php');
+    require_once('controllers/user/forgot_password.php');
+});
+
+$router->post('/user/forgot_password', function () {
+    if (isLoggedIn()) {
+        redirect("/");
+    }
+    require_once('controllers/user/forgot_password.php');
+});
+
+$router->get('/user/reset_password', function () {
+   if (isLoggedIn()) {
+       redirect("/");
+   }
+   require_once('controllers/user/reset_password.php');
 });
 
 $router->post('/user/reset_password', function () {
-    if (isLoggedIn()) {
-        redirect("/");
-    }
-    require_once('controllers/user/reset_password.php');
+   if (isLoggedIn()) {
+       redirect("/");
+   }
+   require_once('controllers/user/reset_password.php');
 });

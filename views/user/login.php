@@ -28,7 +28,7 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control dark-input" name="password" id="password">
                     </div>
-                    <p class="text-muted"><a href="/user/reset_password" class="remove-underline">Forgot Password?</a>
+                    <p class="text-muted"><a href="/user/forgot_password" class="remove-underline">Forgot Password?</a>
                     </p>
                     <div class="mt-2 mb-2 d-flex justify-content-center">
                         <button class="btn btn-primary flex-fill" type="submit">Login</button>

@@ -78,7 +78,6 @@ $controller->post(function () {
         $_SESSION['values']['username'] = $username;
         $_SESSION['values']['email'] = $email;
         redirect("/user/register");
-        die();
     }
 
     //Create new model of user
