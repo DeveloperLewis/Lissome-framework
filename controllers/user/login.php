@@ -1,7 +1,12 @@
 <?php
-$controller = new \classes\server\Controller();
+
+use classes\server\Controller;
+use models\authentication\UserModel;
+
+$controller = new Controller();
 $controller->setView("user/login");
-$controller->get(function() use ($controller) {
+$controller->get(function () use ($controller)
+{
     if (isset($_SESSION['errors'])) {
         $errors_array = $_SESSION['errors'];
         unset($_SESSION['errors']);
@@ -12,13 +17,14 @@ $controller->get(function() use ($controller) {
         unset($_SESSION['success']);
     }
 
-    $controller->view($vars ?? null, $errors_array ?? null);
+    $controller->view();
 });
 
-$controller->post(function() {
-    $userModel = new \models\authentication\UserModel();
+$controller->post(function ()
+{
+    $userModel = new UserModel();
     $userModel->email = $_POST["email"];
-    $userModel->password =  $_POST["password"];
+    $userModel->password = $_POST["password"];
 
     try {
         $user_id = $userModel->authenticate();
