@@ -58,18 +58,20 @@ $controller->post(function() {
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
 
+    $env = new Env();
+
     try {
         $mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $mail->isSMTP();
-        $mail->Host       = 'YOUR HOST';
-        $mail->SMTPAuth   = true;
-        $mail->Username   = 'YOUR USERNAME';
-        $mail->Password   = 'YOUR PASSWORD';
+        $mail->Host       = $env->host;
+        $mail->SMTPAuth   = $env->SMTPAuth;
+        $mail->Username   = $env->mail_username;
+        $mail->Password   = $env->mail_password;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        $mail->Port       = 465;
+        $mail->Port       = $env->mail_port;
 
         //Recipients
-        $mail->setFrom('FROM@YOUREMAIL.COM', 'MAILER');
+        $mail->setFrom($env->mailer, 'MAILER');
         $mail->addAddress($email);
 
         //Content
