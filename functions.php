@@ -1,5 +1,7 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
 function dateAndTime(): ?string
 {
     try {
@@ -16,7 +18,7 @@ function dateAndTime(): ?string
     return null;
 }
 
-function redirect($url, $statusCode = 303): void
+#[NoReturn] function redirect($url, $statusCode = 303): void
 {
     header('Location: ' . $url, true, $statusCode);
     die();
