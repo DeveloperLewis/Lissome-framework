@@ -98,10 +98,8 @@ $controller->post(function ()
         error_log($e);
         $_SESSION['errors']['store_errors'] = [$e];
         redirect("/user/register");
-        die();
     }
 
     $_SESSION['success'] = 'Successfully created account. <a href="/user/login" class="remove-underline">Login here.</a>';
     redirect("/user/register");
-    die();
 });
