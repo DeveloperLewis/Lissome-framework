@@ -52,9 +52,5 @@ function showSuccess($success): void
 
 function isLoggedIn(): bool
 {
-    if (!isset($_SESSION['user'])) {
-        return false;
-    }
-
-    return true;
+    return isset($_SESSION['user']);
 }
