@@ -1,8 +1,10 @@
 <?php
+
+$env = new Env();
 //Create initial Database
-$host = "localhost";
-$username = "root";
-$password = "";
+$host = $env->server;
+$username = $env->username;
+$password = $env->password;
 
 try {
     $pdo = new PDO("mysql:host=$host", $username, $password);
