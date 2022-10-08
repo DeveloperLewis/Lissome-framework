@@ -47,7 +47,6 @@ $controller->post(function ()
         }
 
         redirect("/user/forgot_password");
-        die();
     }
 
     try {
