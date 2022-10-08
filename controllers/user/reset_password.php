@@ -1,7 +1,13 @@
 <?php
-$controller = new \classes\server\Controller();
+
+use classes\authentication\User;
+use classes\server\Controller;
+use classes\server\Database;
+
+$controller = new Controller();
 $controller->setView("user/reset_password");
-$controller->get(function() use ($controller) {
+$controller->get(function () use ($controller)
+{
     if (isset($_SESSION['success'])) {
         $vars['success'] = $_SESSION['success'];
         unset($_SESSION['success']);
@@ -12,10 +18,11 @@ $controller->get(function() use ($controller) {
         unset($_SESSION['errors']);
     }
 
-    $controller->view($vars ?? null, $errors_array ?? null);
+    $controller->view();
 });
 
-$controller->post(function() {
+$controller->post(function ()
+{
     if (empty($_POST['token'])) {
         $empty_errors[] = "The token cannot be empty.";
     }
@@ -35,7 +42,7 @@ $controller->post(function() {
     $password = $_POST["password"];
     $repeat_password = $_POST["repeat_password"];
 
-    $user = new \classes\authentication\User();
+    $user = new User();
     $password_errors = $user->validatePassword($password, $repeat_password);
 
     if (!empty($token_errors) || !empty($password_errors) || !empty($empty_errors)) {
@@ -57,7 +64,7 @@ $controller->post(function() {
     $email = $_SESSION["email"];
     unset($_SESSION["email"]);
 
-    $database = new \classes\server\Database();
+    $database = new Database();
     $stmt = $database->getPdo()->prepare("UPDATE users SET password = ? WHERE email = ?");
     if (!$stmt->execute([$hashed, $email])) {
         $_SESSION['errors']['password_reset'] = ["Something went wrong. Please contact website administrator"];

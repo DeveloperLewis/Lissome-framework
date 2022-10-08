@@ -1,7 +1,13 @@
 <?php
-$controller = new \classes\server\Controller();
+
+use classes\authentication\User;
+use classes\server\Controller;
+use models\authentication\UserModel;
+
+$controller = new Controller();
 $controller->setView("user/register");
-$controller->get(function() use ($controller) {
+$controller->get(function () use ($controller)
+{
     if (isset($_SESSION['values'])) {
         $vars["username"] = $_SESSION['values']['username'];
         $vars["email"] = $_SESSION['values']['email'];
@@ -18,10 +24,11 @@ $controller->get(function() use ($controller) {
         unset($_SESSION['success']);
     }
 
-    $controller->view($vars ?? null, $errors_array ?? null);
+    $controller->view();
 });
 
-$controller->post(function () {
+$controller->post(function ()
+{
 
     //Check for empty POST inputs
     $empty_errors = [];
@@ -52,7 +59,7 @@ $controller->post(function () {
     $repeat_password = $_POST["repeat-password"];
 
     //Validate variables and check for any errors
-    $user = new \classes\authentication\User();
+    $user = new User();
     $username_errors = $user->validateUsername($username);
     $email_errors = $user->validateEmail($email);
     $password_errors = $user->validatePassword($password, $repeat_password);
@@ -81,7 +88,7 @@ $controller->post(function () {
     }
 
     //Create new model of user
-    $userModel = new \models\authentication\UserModel();
+    $userModel = new UserModel();
     $userModel->create($username, $email, $password, dateAndTime());
 
     //Store user in the database
@@ -91,10 +98,8 @@ $controller->post(function () {
         error_log($e);
         $_SESSION['errors']['store_errors'] = [$e];
         redirect("/user/register");
-        die();
     }
 
     $_SESSION['success'] = 'Successfully created account. <a href="/user/login" class="remove-underline">Login here.</a>';
     redirect("/user/register");
-    die();
 });

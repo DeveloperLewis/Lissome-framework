@@ -1,26 +1,32 @@
 <?php
 
-function dateAndTime(): string
+use JetBrains\PhpStorm\NoReturn;
+
+function dateAndTime(): ?string
 {
     try {
         $timezone = 'Europe/London';
         $timestamp = time();
         $dt = new DateTime("now", new DateTimeZone($timezone));
         $dt->setTimestamp($timestamp);
+
+        return $dt->format('d/m/Y H:i:s');
     } catch (Exception $e) {
         error_log($e);
     }
-    return $dt->format('d/m/Y H:i:s');
+
+    return null;
 }
 
-function redirect($url, $statusCode = 303): void
+#[NoReturn] function redirect($url, $statusCode = 303): void
 {
     header('Location: ' . $url, true, $statusCode);
     die();
 }
 
-function showErrors($errors_array): void {
-    if (empty($errors_array)) {
+function showErrors($errors_array): void
+{
+    if (!is_array($errors_array) || empty($errors_array)) {
         return;
     }
 
@@ -33,7 +39,8 @@ function showErrors($errors_array): void {
     }
 }
 
-function showSuccess($success): void {
+function showSuccess($success): void
+{
     if (empty($success)) {
         return;
     }
@@ -43,10 +50,7 @@ function showSuccess($success): void {
     echo '</div>';
 }
 
-function isLoggedIn(): bool {
-    if (!isset($_SESSION['user'])) {
-        return false;
-    }
-
-    return true;
+function isLoggedIn(): bool
+{
+    return isset($_SESSION['user']);
 }

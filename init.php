@@ -1,5 +1,7 @@
 <?php
 
+use migrations\authentication\UserMigrations;
+
 $env = new Env();
 //Create initial Database
 $host = $env->server;
@@ -16,13 +18,13 @@ try {
 try {
     $stmt = $pdo->prepare("CREATE DATABASE IF NOT EXISTS framework");
     if (!$stmt->execute()) {
-        throw new \Exception("Failed to create the database.");
+        throw new Exception("Failed to create the database.");
     }
 } catch (Exception $e) {
     error_log($e);
 }
 
-$user_migrations = new \migrations\authentication\UserMigrations();
+$user_migrations = new UserMigrations();
 
 //Create the user table and alter table
 try {
