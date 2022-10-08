@@ -29,7 +29,7 @@ $controller->post(function() {
     }
 
     if (!isset($_POST['repeat_password'])) {
-        $empty_errors[] = "The repeat passwrd cannot be empty";
+        $empty_errors[] = "The repeat password cannot be empty";
     }
 
     $password = $_POST["password"];
@@ -53,6 +53,19 @@ $controller->post(function() {
 
         redirect("/user/reset_password");
     }
+    $hashed = password_hash($password, PASSWORD_DEFAULT);
+    $email = $_SESSION["email"];
+    unset($_SESSION["email"]);
 
-    echo "poo";
+    $database = new \classes\server\Database();
+    $stmt = $database->getPdo()->prepare("UPDATE users SET password = ? WHERE email = ?");
+    if (!$stmt->execute([$hashed, $email])) {
+        $_SESSION['errors']['password_reset'] = ["Something went wrong. Please contact website administrator"];
+        error_log("Failed to update the user password in the database");
+        redirect("/user/reset_password");
+    }
+
+    unset($_SESSION["token"]);
+    $_SESSION["success"] = "Successfully changed password, you can now login again.";
+    redirect("/user/login");
 });

@@ -21,8 +21,17 @@ $controller->post(function() {
 
     $email = $_POST["email"];
 
-    $user = new \classes\authentication\User();
-    $email_errors = $user->validateEmail($email);
+    if (strlen($email) < 3) {
+        $email_errors['min_size'] = "Your email address must be greater than 3 characters.";
+    };
+
+    if (strlen($email) > 320) {
+        $email_errors['max_size'] = "Your email address must be less than 320 characters.";
+    };
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $email_errors['invalid'] = "This email address is not valid.";
+    }
 
     if (!empty($email_errors) || !empty($empty_errors)) {
         if (!empty($email_errors)) {
@@ -44,6 +53,7 @@ $controller->post(function() {
     }
 
     $_SESSION["token"] = $token;
+    $_SESSION["email"] = $email;
 
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);

@@ -7,7 +7,12 @@ $controller->get(function() use ($controller) {
         unset($_SESSION['errors']);
     }
 
-    $controller->view(null, $errors_array ?? null);
+    if (isset($_SESSION['success'])) {
+        $vars['success'] = $_SESSION['success'];
+        unset($_SESSION['success']);
+    }
+
+    $controller->view($vars ?? null, $errors_array ?? null);
 });
 
 $controller->post(function() {

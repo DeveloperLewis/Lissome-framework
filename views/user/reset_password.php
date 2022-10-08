@@ -17,7 +17,6 @@
                 <?php
                 //Errors and Success Messages
                 showErrors($errors_array ?? "");
-                showSuccess($vars['success'] ?? "");
                 ?>
 
                 <form action="/user/reset_password" method="POST">

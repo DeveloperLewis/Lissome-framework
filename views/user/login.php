@@ -17,6 +17,7 @@
                 <?php
                 //Errors
                 showErrors($errors_array ?? "");
+                showSuccess($vars["success"] ?? "")
                 ?>
 
                 <form action="/user/login" method="POST">
