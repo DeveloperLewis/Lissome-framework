@@ -2,9 +2,6 @@
 
 namespace classes\server;
 
-use Exception;
-use Env;
-
 class Database
 {
 

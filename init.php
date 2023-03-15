@@ -1,5 +1,7 @@
 <?php
 
+use classes\server\Env;
+
 $env = new Env();
 //Create initial Database
 $host = $env->server;

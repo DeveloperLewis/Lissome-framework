@@ -1,7 +1,9 @@
 <?php
+
+use classes\server\Env;
+use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
 
 $controller = new \classes\server\Controller();
 $controller->setView("user/forgot_password");
