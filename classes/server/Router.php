@@ -29,8 +29,8 @@ class Router
     private function createHandler($method, $path, $handler): void
     {
         $this->handlers[$method . $path] = [
-            'path' => $path,
-            'method' => $method,
+            'path'    => $path,
+            'method'  => $method,
             'handler' => $handler
         ];
     }
@@ -47,15 +47,18 @@ class Router
 
         //Verify that the url is matching one the above paths and methods and then send them the handler
         foreach ($this->handlers as $handler) {
-            if ($handler['path'] === $requestPath && $method === $handler['method']) {
+            if ($handler['path'] === $requestPath && $method === $handler['method'])
+            {
                 $callback = $handler['handler'];
             }
         }
 
         //If there is no callback then the page is not found, and thus return a page for not found.
-        if (!$callback) {
+        if (!$callback)
+        {
             header("HTTP/1.0 404 Not Found");
-            if (!empty($this->notFound)) {
+            if (!empty($this->notFound))
+            {
                 $callback = $this->notFound;
             }
         }
@@ -64,7 +67,5 @@ class Router
         call_user_func_array($callback, [
             array_merge($_GET, $_POST)
         ]);
-
     }
-
 }

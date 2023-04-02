@@ -1,13 +1,16 @@
 <?php
 $controller = new \classes\server\Controller();
 $controller->setView("user/login");
-$controller->get(function() use ($controller) {
-    if (isset($_SESSION['errors'])) {
+$controller->get(function() use ($controller)
+{
+    if (isset($_SESSION['errors']))
+    {
         $errors_array = $_SESSION['errors'];
         unset($_SESSION['errors']);
     }
 
-    if (isset($_SESSION['success'])) {
+    if (isset($_SESSION['success']))
+    {
         $vars['success'] = $_SESSION['success'];
         unset($_SESSION['success']);
     }
@@ -15,22 +18,29 @@ $controller->get(function() use ($controller) {
     $controller->view($vars ?? null, $errors_array ?? null);
 });
 
-$controller->post(function() {
+$controller->post(function()
+{
     $userModel = new \models\authentication\UserModel();
     $userModel->email = $_POST["email"];
     $userModel->password =  $_POST["password"];
 
-    try {
+    try
+    {
         $user_id = $userModel->authenticate();
-    } catch (Exception $e) {
+    }
+    catch (Exception $e)
+    {
         error_log($e);
         $_SESSION["errors"]["login"] = ["The password or email is incorrect, please try again."];
         redirect("/user/login");
     }
 
-    try {
+    try
+    {
         $userModel->get();
-    } catch (Exception $e) {
+    }
+    catch (Exception $e)
+    {
         error_log($e);
         $_SESSION["errors"]["login"] = ["There was an internal error. Please contact site administrator"];
         redirect("/user/login");

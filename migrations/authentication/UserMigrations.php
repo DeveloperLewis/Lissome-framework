@@ -9,7 +9,8 @@ class UserMigrations
 {
     private object $pdo;
 
-    public function __construct() {
+    public function __construct()
+    {
         $database = new Database();
         $this->pdo = $database->getPdo();
     }
@@ -27,29 +28,34 @@ class UserMigrations
             account_creation_date varchar(20) not null
         )");
 
-        if (!$stmt->execute()) {
+        if (!$stmt->execute())
+        {
             throw new Exception("Failed to create user table.");
         }
         return "Successfully created user table.";
     }
 
-    public function alterPrimaryKey(): string {
+    public function alterPrimaryKey(): string
+    {
         $stmt = $this->pdo->prepare("alter table users
             add constraint users_pk
             primary key (user_id);");
 
-        if (!$stmt->execute()) {
+        if (!$stmt->execute())
+        {
             throw new Exception("Failed to alter the user table and make the user_id the primary key.");
         }
 
         return "Successfully altered the primary key.";
     }
 
-    public function alterAutoIncrement(): string {
+    public function alterAutoIncrement(): string
+    {
         $stmt = $this->pdo->prepare("alter table users
             modify user_id int auto_increment;");
 
-        if (!$stmt->execute()) {
+        if (!$stmt->execute())
+        {
             throw new Exception("Failed to alter the user table and make the user_id auto incrementing");
         }
 

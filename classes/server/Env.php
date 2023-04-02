@@ -3,21 +3,16 @@
 namespace classes\server;
 class Env
 {
-    //Database variables
-    public string $type = 'mysql';
-    public string $server = 'localhost';
-    public string $db = 'framework';
-    public string $port = '3306';
-    public string $charset = 'utf8mb4';
+    //Database Connection Variables
+    public string $type     = 'mysql';
+    public string $server   = 'localhost';
+    public string $db       = 'framework';
+    public string $port     = '3306';
+    public string $charset  = 'utf8mb4';
 
+    //Database Credentials
     public string $username = 'root';
     public string $password = '';
 
-    //Mailer Variables;
-    public string $host = '';
-    public bool $SMTPAuth = true;
-    public string $mail_username = 'YOUR USERNAME';
-    public string $mail_password = 'YOUR PASSWORD';
-    public int $mail_port = 465;
-    public string $mailer = "FROMYOUR@EMAIL.COM";
+    //DO NOT INCLUDE THIS ENV.PHP FILE IN ANY PUBLIC REPOSITORIES. THIS COULD COMPROMISE YOUR SECURITY.
 }

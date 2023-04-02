@@ -1,19 +1,23 @@
 <?php
 $controller = new \classes\server\Controller();
 $controller->setView("user/register");
-$controller->get(function() use ($controller) {
-    if (isset($_SESSION['values'])) {
+$controller->get(function() use ($controller)
+{
+    if (isset($_SESSION['values']))
+    {
         $vars["username"] = $_SESSION['values']['username'];
         $vars["email"] = $_SESSION['values']['email'];
         unset($_SESSION['values']);
     }
 
-    if (isset($_SESSION['errors'])) {
+    if (isset($_SESSION['errors']))
+    {
         $errors_array = $_SESSION['errors'];
         unset($_SESSION['errors']);
     }
 
-    if (isset($_SESSION['success'])) {
+    if (isset($_SESSION['success']))
+    {
         $vars["success"] = $_SESSION['success'];
         unset($_SESSION['success']);
     }
@@ -21,27 +25,33 @@ $controller->get(function() use ($controller) {
     $controller->view($vars ?? null, $errors_array ?? null);
 });
 
-$controller->post(function () {
+$controller->post(function ()
+{
 
     //Check for empty POST inputs
     $empty_errors = [];
-    if (empty($_POST["username"])) {
+    if (empty($_POST["username"]))
+    {
         $empty_errors[] = "The username is empty";
     }
 
-    if (empty($_POST["email"])) {
+    if (empty($_POST["email"]))
+    {
         $empty_errors[] = "The email is empty";
     }
 
-    if (empty($_POST["password"])) {
+    if (empty($_POST["password"]))
+    {
         $empty_errors[] = "The password is empty";
     }
 
-    if (empty($_POST["repeat-password"])) {
+    if (empty($_POST["repeat-password"]))
+    {
         $empty_errors[] = "The repeat password is empty";
     }
 
-    if (!isset($_POST["checkbox"])) {
+    if (!isset($_POST["checkbox"]))
+    {
         $empty_errors[] = "You must agree to the privacy policy to signup";
     }
 
@@ -58,20 +68,25 @@ $controller->post(function () {
     $password_errors = $user->validatePassword($password, $repeat_password);
 
     //Start sessions for any errors and return to form with errors
-    if (!empty($empty_errors) || !empty($username_errors) || !empty($email_errors) || !empty($password_errors)) {
-        if (!empty($username_errors)) {
+    if (!empty($empty_errors) || !empty($username_errors) || !empty($email_errors) || !empty($password_errors))
+    {
+        if (!empty($username_errors))
+        {
             $_SESSION['errors']['username_errors'] = $username_errors;
         }
 
-        if (!empty($email_errors)) {
+        if (!empty($email_errors))
+        {
             $_SESSION['errors']['email_errors'] = $email_errors;
         }
 
-        if (!empty($password_errors)) {
+        if (!empty($password_errors))
+        {
             $_SESSION['errors']['password_errors'] = $password_errors;
         }
 
-        if (!empty($empty_errors)) {
+        if (!empty($empty_errors))
+        {
             $_SESSION['errors']['empty_errors'] = $empty_errors;
         }
 
@@ -85,9 +100,12 @@ $controller->post(function () {
     $userModel->create($username, $email, $password, dateAndTime());
 
     //Store user in the database
-    try {
+    try
+    {
         $userModel->store();
-    } catch (Exception $e) {
+    }
+    catch (Exception $e)
+    {
         error_log($e);
         $_SESSION['errors']['store_errors'] = [$e];
         redirect("/user/register");

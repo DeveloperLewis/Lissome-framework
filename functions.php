@@ -2,12 +2,15 @@
 
 function dateAndTime(): string
 {
-    try {
+    try
+    {
         $timezone = 'Europe/London';
         $timestamp = time();
         $dt = new DateTime("now", new DateTimeZone($timezone));
         $dt->setTimestamp($timestamp);
-    } catch (Exception $e) {
+    }
+    catch (Exception $e)
+    {
         error_log($e);
     }
     return $dt->format('d/m/Y H:i:s');
@@ -19,13 +22,17 @@ function redirect($url, $statusCode = 303): void
     die();
 }
 
-function showErrors($errors_array): void {
-    if (empty($errors_array)) {
+function showErrors($errors_array): void
+{
+    if (empty($errors_array))
+    {
         return;
     }
 
-    foreach ($errors_array as $errors) {
-        foreach ($errors as $error) {
+    foreach ($errors_array as $errors)
+    {
+        foreach ($errors as $error)
+        {
             echo '<div class="text-center">';
             echo '<small class="text-danger">' . $error . '</small>';
             echo '</div>';
@@ -33,8 +40,10 @@ function showErrors($errors_array): void {
     }
 }
 
-function showSuccess($success): void {
-    if (empty($success)) {
+function showSuccess($success): void
+{
+    if (empty($success))
+    {
         return;
     }
 
@@ -43,8 +52,10 @@ function showSuccess($success): void {
     echo '</div>';
 }
 
-function isLoggedIn(): bool {
-    if (!isset($_SESSION['user'])) {
+function isLoggedIn(): bool
+{
+    if (!isset($_SESSION['user']))
+    {
         return false;
     }
 

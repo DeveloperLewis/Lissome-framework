@@ -27,26 +27,31 @@ class UserModel
         $database = new Database();
         $stmt = $database->getPdo()->prepare("INSERT INTO users (username, email, password, account_creation_date) VALUES (?,?,?,?);");
 
-        if (!$stmt->execute([$this->username, $this->email, $this->password, $this->account_creation_date])) {
+        if (!$stmt->execute([$this->username, $this->email, $this->password, $this->account_creation_date]))
+        {
             throw new Exception("Unable to store user in the database");
         };
 
         return "Successfully stored user in the database";
     }
 
-    public function authenticate(): string {
+    public function authenticate(): string
+    {
         $database = new Database();
         $stmt = $database->getPdo()->prepare("SELECT * FROM users WHERE email = ?");
 
-        if (!$stmt->execute([$this->email])) {
+        if (!$stmt->execute([$this->email]))
+        {
             throw new Exception("SQL statement could not be executed");
         }
 
-        if (!$user = $stmt->fetch()) {
+        if (!$user = $stmt->fetch())
+        {
             throw new Exception("User could not be fetched from the database.");
         }
 
-        if (!password_verify($this->password, $user["password"])) {
+        if (!password_verify($this->password, $user["password"]))
+        {
             throw new Exception("Password did not match hashed password in database.");
         }
 
@@ -55,15 +60,18 @@ class UserModel
         return "Successfully authenticated the user and set the user_id property";
     }
 
-    public function get(): string {
+    public function get(): string
+    {
         $database = new Database();
         $stmt = $database->getPdo()->prepare("SELECT * FROM users WHERE user_id = ?");
 
-        if (!$stmt->execute([$this->user_id])) {
+        if (!$stmt->execute([$this->user_id]))
+        {
             throw new Exception("Failed to execute the get by user_id statement.");
         }
 
-        if (!$user = $stmt->fetch()) {
+        if (!$user = $stmt->fetch())
+        {
             throw new Exception("Failed to fetch the user from the database");
         }
 

@@ -8,14 +8,16 @@ class Controller
 
     public function get(callable $callback): void
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET')
+        {
             $callback();
         }
     }
 
     public function post(callable $callback): void
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
             $callback();
         }
     }
