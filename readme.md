@@ -1,17 +1,14 @@
-# Simple MVC Framework
-A super simple custom MVC framework structured for readability and maintainability.
-As well as mostly just learning purposes for my improvement.
+# Square, a PHP Framework.
+A framework based on the MVC design pattern. 
 
 ## Features
-- Structured layout
-- MVC Pattern
+- Lightweight
 - User Authentication
-- Mailer
-- Includes Bootstrap
+- Commandline commands
 
 ## Installation
 - Requires PHP 8, mysql and apache2.
-- git clone https://github.com/DeveloperLewis/basic-php-mvc-framework.git
-- composer install
-- Env.php contains all the settings to tweak to your environment.
-
+- `git clone https://github.com/DeveloperLewis/basic-php-mvc-framework.git .`
+- `composer install`
+- `php square env`
+- `php square init`
