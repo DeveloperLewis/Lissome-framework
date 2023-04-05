@@ -1,7 +1,9 @@
 #!/usr/bin/env php
 <?php
-$cmds = $argv;
+//Autoload import because the commandline system is separate from the routing.
+require_once('vendor/autoload.php');
 
+$cmds = $argv;
 $colour_reset = "\033[0m";
 $colour_red = "\033[32m";
 
@@ -9,10 +11,12 @@ if (!isset($cmds[1]))
 {
     echo "Use " . $colour_red . "php square help" . $colour_reset . " for a list of commands.";
 }
+
 elseif($cmds[1] == "help")
 {
     require_once("commands/help.php");
 }
+
 elseif ($cmds[1] == "env")
 {
     require_once("commands/env_setup.php");

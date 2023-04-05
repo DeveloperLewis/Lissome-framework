@@ -61,3 +61,20 @@ function isLoggedIn(): bool
 
     return true;
 }
+
+function yesNoLoop($prompt): bool {
+    while (true) {
+        $input = strtolower(readline($prompt));
+        if ($input === "y") {
+            return true;
+        } elseif ($input === "n") {
+            return false;
+        }
+        echo "Invalid input. Please enter 'y' or 'n'." . PHP_EOL;
+    }
+}
+//Filters any directory path to be compatible with both linux/windows.
+function universalDir(string $filePath): string
+{
+    return preg_replace("([/\\\\])", DIRECTORY_SEPARATOR, $filePath);
+}
