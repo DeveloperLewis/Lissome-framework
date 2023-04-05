@@ -19,7 +19,7 @@ class Env
 
     public function __construct()
     {
-        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv = Dotenv::createImmutable(dirname(__DIR__, 2));
         $dotenv->load();
 
         $this->type = $_ENV['DBTYPE'];
