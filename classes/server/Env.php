@@ -1,18 +1,34 @@
 <?php
 
 namespace classes\server;
+
+use Dotenv\Dotenv;
+
 class Env
 {
     //Database Connection Variables
-    public string $type     = 'mysql';
-    public string $server   = 'localhost';
-    public string $db       = 'framework';
-    public string $port     = '3306';
-    public string $charset  = 'utf8mb4';
+    public string $type;
+    public string $server;
+    public string $db;
+    public string $port;
+    public string $charset;
 
     //Database Credentials
-    public string $username = 'root';
-    public string $password = '';
+    public string $username;
+    public string $password;
 
-    //DO NOT INCLUDE THIS ENV.PHP FILE IN ANY PUBLIC REPOSITORIES. THIS COULD COMPROMISE YOUR SECURITY.
+    public function __construct()
+    {
+        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv->load();
+
+        $this->type = $_ENV['DBTYPE'];
+        $this->server = $_ENV['DBSERVERIP'];
+        $this->db = $_ENV['DBNAME'];
+        $this->port = $_ENV['DBPORT'];
+        $this->charset = $_ENV['DBCHARSET'];
+
+        $this->username = $_ENV['DBUSERNAME'];
+        $this->password = $_ENV['DBPASSWORD'];
+    }
 }
