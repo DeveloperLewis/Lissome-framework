@@ -19,10 +19,10 @@ elseif($cmds[1] == "help")
 
 elseif ($cmds[1] == "env")
 {
-    require_once("commands/env_setup.php");
+    require_once("commands/setup/env.php");
 }
 
 elseif ($cmds[1] == "init")
 {
-    require_once("commands/init.php");
+    require_once("commands/setup/init.php");
 }

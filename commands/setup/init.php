@@ -1,9 +1,7 @@
 <?php
-
 use classes\server\Env;
 
 $env = new Env();
-//Create initial Database
 $host = $env->server;
 $username = $env->username;
 $password = $env->password;
@@ -20,7 +18,7 @@ catch (PDOException $e)
 //Create Database
 try
 {
-    $stmt = $pdo->prepare("CREATE DATABASE IF NOT EXISTS framework");
+    $stmt = $pdo->prepare("CREATE DATABASE IF NOT EXISTS $env->db");
     if (!$stmt->execute())
     {
         throw new \Exception("Failed to create the database.");
@@ -29,11 +27,11 @@ try
 catch (Exception $e)
 {
     error_log($e);
+    echo "There was an error creating the database, look at apache logs for more information.";
 }
 
+//Create User Table
 $user_migrations = new \migrations\authentication\UserMigrations();
-
-//Create the user table and alter table
 try
 {
     $user_migrations->createTable();
@@ -43,4 +41,7 @@ try
 catch (Exception $e)
 {
     error_log($e);
+    echo "There was an error creating the users table, look at apache logs for more information.";
 }
+
+echo "Initialization finished.";

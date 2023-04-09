@@ -1,5 +1,5 @@
 <?php
-$envPath = universalDir(dirname(__DIR__) . "/.env");
+$envPath = universalDir(dirname(__DIR__, 2) . "/.env");
 if (file_exists($envPath))
 {
     echo "A .env file already exists.";
