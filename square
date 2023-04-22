@@ -1,6 +1,5 @@
 #!/usr/bin/env php
 <?php
-//Autoload import because the commandline system is separate from the routing.
 require_once('vendor/autoload.php');
 
 $cmds = $argv;

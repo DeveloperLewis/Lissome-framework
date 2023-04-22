@@ -2,12 +2,12 @@
 
 namespace classes\authentication;
 
-class Validator
+class GeneralValidation
 {
     public string $input;
     private array $errors;
 
-    public function __construct($input)
+    public function __construct(string $input)
     {
         $this->input = $input;
     }
