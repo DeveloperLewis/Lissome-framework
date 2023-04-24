@@ -25,3 +25,8 @@ elseif ($cmds[1] == "init")
 {
     require_once("commands/setup/init.php");
 }
+
+elseif ($cmds[1] == "tests")
+{
+    require_once("commands/general/tests.php");
+}
