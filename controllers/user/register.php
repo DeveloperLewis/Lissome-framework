@@ -22,7 +22,7 @@ $controller->get(function() use ($controller)
         unset($_SESSION['success']);
     }
 
-    $controller->view($vars ?? null, $errors_array ?? null);
+    $controller->getView($vars ?? null, $errors_array ?? null);
 });
 
 $controller->post(function ()

@@ -19,5 +19,5 @@ $controller->get(function() use ($controller)
         }
     }
 
-    $controller->view($vars ?? null, null);
+    $controller->getView($vars ?? null, null);
 });

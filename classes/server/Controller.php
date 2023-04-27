@@ -4,7 +4,7 @@ namespace classes\server;
 
 class Controller
 {
-    protected string $view;
+    public string $view;
 
     public function get(callable $callback): void
     {
@@ -27,7 +27,7 @@ class Controller
         $this->view = $viewLocation;
     }
 
-    public function view($vars = null, $errors_array = null): void
+    public function getView($vars = null, $errors_array = null): void
     {
         require_once('views/' . $this->view . '.php');
     }

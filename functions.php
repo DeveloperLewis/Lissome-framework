@@ -6,14 +6,14 @@ function dateAndTime(): string
     {
         $timezone = 'Europe/London';
         $timestamp = time();
-        $dt = new DateTime("now", new DateTimeZone($timezone));
-        $dt->setTimestamp($timestamp);
+        $datetime = new DateTime("now", new DateTimeZone($timezone));
+        $datetime->setTimestamp($timestamp);
     }
     catch (Exception $e)
     {
         error_log($e);
     }
-    return $dt->format('d/m/Y H:i:s');
+    return $datetime->format('d/m/Y H:i:s');
 }
 
 function redirect($url, $statusCode = 303): void
@@ -22,7 +22,7 @@ function redirect($url, $statusCode = 303): void
     die();
 }
 
-function showErrors($errors_array): void
+function showErrors(array $errors_array): void
 {
     if (empty($errors_array))
     {
@@ -40,7 +40,7 @@ function showErrors($errors_array): void
     }
 }
 
-function showSuccess($success): void
+function showSuccess(string $success): void
 {
     if (empty($success))
     {
