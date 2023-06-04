@@ -1,10 +1,9 @@
 <?php
-
 namespace classes\middleware;
 
 class General
 {
-    //Verify that the session is secure.
+    //Session hijacking security
     private function verifySession(): void
     {
         if (isset($_SESSION["user"]))
@@ -21,7 +20,7 @@ class General
         }
     }
 
-    //Authenticate that the user is logged in.
+    //Check that user is logged in
     public function authenticateUser(): void
     {
         $this->verifySession();

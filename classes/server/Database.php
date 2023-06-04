@@ -1,6 +1,7 @@
 <?php
-
 namespace classes\server;
+use PDO;
+use PDOException;
 
 class Database
 {
@@ -11,7 +12,7 @@ class Database
         \PDO::ATTR_EMULATE_PREPARES     => false
     ];
 
-    //Connect to database upon creating object.
+    //Connect to database when object is created
     public function __construct()
     {
         $env = new Env();
@@ -19,15 +20,15 @@ class Database
 
         try
         {
-            $this->pdo = new \PDO($dsn, $env->username, $env->password, $this->options);
+            $this->pdo = new PDO($dsn, $env->username, $env->password, $this->options);
         }
-        catch (\PDOException $e)
+        catch (PDOException $e)
         {
-            throw new \PDOException($e->getMessage(), $e->getCode());
+            throw new PDOException($e->getMessage(), $e->getCode());
         }
     }
 
-    public function getPdo()
+    public function getPdo(): PDO
     {
         return $this->pdo;
     }

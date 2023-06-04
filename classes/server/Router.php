@@ -4,12 +4,20 @@ namespace classes\server;
 
 class Router
 {
-
-    //Handlers holds all the functions that you provide when routing.
     private array $handlers = [];
     private object $notFound;
-    private const get = 'GET';
-    private const post = 'POST';
+    private const get   = 'GET';
+    private const post  = 'POST';
+
+    //Handler for request type and callback
+    private function createHandler($method, $path, $handler): void
+    {
+        $this->handlers[$method . $path] = [
+            'path'    => $path,
+            'method'  => $method,
+            'handler' => $handler
+        ];
+    }
 
     public function get($path, $handler): void
     {
@@ -24,15 +32,6 @@ class Router
     public function notFound($handler): void
     {
         $this->notFound = $handler;
-    }
-
-    private function createHandler($method, $path, $handler): void
-    {
-        $this->handlers[$method . $path] = [
-            'path'    => $path,
-            'method'  => $method,
-            'handler' => $handler
-        ];
     }
 
     public function run(): void
@@ -64,8 +63,6 @@ class Router
         }
 
         //Turn into req, res objects another time when I learn more.
-        call_user_func_array($callback, [
-            array_merge($_GET, $_POST)
-        ]);
+        call_user_func_array($callback, [[...$_GET, ...$_POST]]);
     }
 }

@@ -1,11 +1,11 @@
 <?php
-
 namespace classes\server;
 
 class Controller
 {
-    public string $view;
+    protected string $view;
 
+    //Assign callback to a get request
     public function get(callable $callback): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET')
@@ -14,6 +14,7 @@ class Controller
         }
     }
 
+    //Assign callback to a post request
     public function post(callable $callback): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -22,12 +23,14 @@ class Controller
         }
     }
 
+    //Set a view for the controller to use
     public function setView(string $viewLocation): void
     {
         $this->view = $viewLocation;
     }
 
-    public function getView($vars = null, $errors_array = null): void
+    //Get the view from views directory
+    public function getView(): void
     {
         require_once('views/' . $this->view . '.php');
     }
