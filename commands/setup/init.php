@@ -1,10 +1,11 @@
 <?php
+//Script for creating database
 use classes\server\Env;
 
-$env = new Env();
-$host = $env->server;
-$username = $env->username;
-$password = $env->password;
+$env        = new Env();
+$host       = $env->server;
+$username   = $env->username;
+$password   = $env->password;
 
 try
 {
