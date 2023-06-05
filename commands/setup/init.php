@@ -1,6 +1,7 @@
 <?php
 //Script for creating database
 use classes\server\Env;
+use migrations\User;
 
 $env        = new Env();
 $host       = $env->server;
@@ -32,7 +33,7 @@ catch (Exception $e)
 }
 
 //Create User Table
-$user_migrations = new \migrations\authentication\UserMigrations();
+$user_migrations = new User();
 try
 {
     $user_migrations->createTable();

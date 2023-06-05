@@ -1,6 +1,6 @@
 <?php
 use classes\server\Controller;
-use classes\validation\GeneralValidation;
+use classes\validation\General;
 use models\authentication\UserModel;
 
 $controller = new Controller();
@@ -35,7 +35,7 @@ $controller->post(function ()
     $postArray = [$_POST["username"], $_POST["email"], $_POST["password"], $_POST["repeat-password"], $_POST["checkbox"]];
 
     //Empty validations
-    $emptyValidator = new GeneralValidation();
+    $emptyValidator = new General();
     $emptyValidator->emptyInputs($postArray);
     $emptyErrors = $emptyValidator->getErrors();
 
@@ -46,14 +46,14 @@ $controller->post(function ()
     $repeat_password = $_POST["repeat-password"];
 
     //Username validations
-    $usernameValidator = new GeneralValidation();
+    $usernameValidator = new General();
     $usernameValidator->minLength($username,3 );
     $usernameValidator->maxLength($username, 30);
     $usernameValidator->LettersAndDigitsOnly($username);
     $usernameErrors = $usernameValidator->getErrors();
 
     //Email validations
-    $emailValidator = new GeneralValidation();
+    $emailValidator = new General();
     $emailValidator->minLength($email, 3);
     $emailValidator->maxLength($email, 320);
     $emailValidator->validateEmail($email);
@@ -61,7 +61,7 @@ $controller->post(function ()
     $emailErrors = $emailValidator->getErrors();
 
     //Password validations
-    $passwordValidator = new GeneralValidation();
+    $passwordValidator = new General();
     $passwordValidator->compareRepeatedPasswords($password, $repeat_password);
     $passwordValidator->minLength($password, 8);
     $passwordValidator->maxLength($password, 128);

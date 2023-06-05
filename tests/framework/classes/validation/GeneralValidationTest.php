@@ -5,11 +5,11 @@ use PHPUnit\Framework\TestCase;
 
 class GeneralValidationTest extends TestCase
 {
-    private GeneralValidation $generalValidator;
+    private General $generalValidator;
 
     private function setValidator(string $testString): void
     {
-        $this->generalValidator = new GeneralValidation($testString);
+        $this->generalValidator = new General($testString);
     }
     public function testMinLength(): void
     {
