@@ -1,11 +1,10 @@
 <?php
-
-namespace models\authentication;
+namespace models;
 
 use classes\server\Database;
 use Exception;
 
-class UserModel
+class User
 {
     public int $user_id;
     public string $username;
@@ -13,32 +12,36 @@ class UserModel
     public string $password;
     public string $account_creation_date;
 
-    public function create($username, $email, $password, $account_creation_date, $user_id = 0): void
+    private Database $database;
+
+    public function __construct()
     {
-        $this->user_id = $user_id;
+        $this->database = new Database();
+    }
+
+    public function create($username, $email, $password, $account_creation_date): void
+    {
         $this->username = $username;
         $this->email = $email;
         $this->password = password_hash($password, PASSWORD_DEFAULT);
         $this->account_creation_date = $account_creation_date;
     }
 
-    public function store(): string
+    public function store(): void
     {
-        $database = new Database();
-        $stmt = $database->getPdo()->prepare("INSERT INTO users (username, email, password, account_creation_date) VALUES (?,?,?,?);");
+        $sql = "INSERT INTO users (username, email, password, account_creation_date) VALUES (?,?,?,?);";
+        $stmt = $this->database->getPdo()->prepare($sql);
 
         if (!$stmt->execute([$this->username, $this->email, $this->password, $this->account_creation_date]))
         {
             throw new Exception("Unable to store user in the database");
-        };
-
-        return "Successfully stored user in the database";
+        }
     }
 
-    public function authenticate(): string
+    public function authenticate(): void
     {
-        $database = new Database();
-        $stmt = $database->getPdo()->prepare("SELECT * FROM users WHERE email = ?");
+        $sql = "SELECT * FROM users WHERE email = ?";
+        $stmt = $this->database->getPdo()->prepare($sql);
 
         if (!$stmt->execute([$this->email]))
         {
@@ -56,16 +59,14 @@ class UserModel
         }
 
         $this->user_id = $user["user_id"];
-
-        return "Successfully authenticated the user and set the user_id property";
     }
 
-    public function get(): string
+    public function get(int $user_id): void
     {
-        $database = new Database();
-        $stmt = $database->getPdo()->prepare("SELECT * FROM users WHERE user_id = ?");
+        $sql = "SELECT * FROM users WHERE user_id = ?";
+        $stmt = $this->database->getPdo()->prepare($sql);
 
-        if (!$stmt->execute([$this->user_id]))
+        if (!$stmt->execute([$user_id]))
         {
             throw new Exception("Failed to execute the get by user_id statement.");
         }
@@ -75,8 +76,10 @@ class UserModel
             throw new Exception("Failed to fetch the user from the database");
         }
 
-        $this->create($user["username"], $user["email"], $user["password"], $user["account_creation_date"], $user["user_id"]);
-
-        return "Successfully created the userModel and filled properties.";
+        $this->username = $user["username"];
+        $this->email = $user["email"];
+        $this->password = $user["password"];
+        $this->account_creation_date = $user["account_creation_date"];
+        $this->user_id = $user["user_id"];
     }
 }
