@@ -2,7 +2,7 @@
 namespace classes\validation;
 use classes\server\Database;
 
-class GeneralValidation
+class General
 {
     readonly private array $errors;
 
