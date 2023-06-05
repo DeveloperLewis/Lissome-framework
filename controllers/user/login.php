@@ -1,11 +1,14 @@
 <?php
-$controller = new \classes\server\Controller();
+use classes\server\Controller;
+use models\authentication\UserModel;
+
+$controller = new Controller();
 $controller->setView("user/login");
 $controller->get(function() use ($controller)
 {
     if (isset($_SESSION['errors']))
     {
-        $errors_array = $_SESSION['errors'];
+        $errorsArray = $_SESSION['errors'];
         unset($_SESSION['errors']);
     }
 
@@ -15,18 +18,19 @@ $controller->get(function() use ($controller)
         unset($_SESSION['success']);
     }
 
-    $controller->getView($vars ?? null, $errors_array ?? null);
+    $controller->getView();
 });
 
 $controller->post(function()
 {
-    $userModel = new \models\authentication\UserModel();
+    $userModel = new UserModel();
     $userModel->email = $_POST["email"];
     $userModel->password =  $_POST["password"];
 
+    //Try to log in the user
     try
     {
-        $user_id = $userModel->authenticate();
+        $userModel->authenticate();
     }
     catch (Exception $e)
     {
@@ -35,6 +39,7 @@ $controller->post(function()
         redirect("/user/login");
     }
 
+    //Try to retrieve the user
     try
     {
         $userModel->get();

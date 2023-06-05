@@ -1,5 +1,7 @@
 <?php
+//Setup script for creating an env file and guide through setting variables.
 $envPath = universalDir(dirname(__DIR__, 2) . "/.env");
+
 if (file_exists($envPath))
 {
     echo "A .env file already exists.";
@@ -7,6 +9,7 @@ if (file_exists($envPath))
 }
 
 echo "This setup will guide you through setting up your environment variables. \n";
+
 if(!yesNoLoop("Do you wish to continue? (y/n): "))
 {
     die();
@@ -52,19 +55,20 @@ if(yesNoLoop("The default username login is '" . $username . "' and the password
 }
 
 $env = fopen($envPath, 'w');
+
 if ($env === false) {
     echo "Failed to create .env file, please ensure you have the correct permissions and try again.";
     die();
 }
 
 $envLines = [
-    "DBTYPE=" . $type,
-    "DBSERVERIP=" . $server,
-    "DBNAME=" . $db,
-    "DBPORT=" . $port,
-    "DBCHARSET=" . $charset,
-    "DBUSERNAME=" . $username,
-    "DBPASSWORD=" . $password
+    "DBTYPE="       . $type,
+    "DBSERVERIP="   . $server,
+    "DBNAME="       . $db,
+    "DBPORT="       . $port,
+    "DBCHARSET="    . $charset,
+    "DBUSERNAME="   . $username,
+    "DBPASSWORD="   . $password
 ];
 
 foreach($envLines as $envline)

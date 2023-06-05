@@ -1,5 +1,7 @@
 <?php
-$controller = new \classes\server\Controller();
+use classes\server\Controller;
+
+$controller = new Controller();
 $controller->get(function()
 {
     unset($_SESSION['user']);
