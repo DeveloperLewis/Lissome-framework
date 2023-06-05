@@ -1,11 +1,14 @@
 <?php
-$controller = new \classes\server\Controller();
+use classes\server\Controller;
+use models\authentication\UserModel;
+
+$controller = new Controller();
 $controller->setView("index");
 $controller->get(function() use ($controller)
 {
     if (isset($_SESSION["user"]))
     {
-        $userModel = new \models\authentication\UserModel();
+        $userModel = new UserModel();
         $userModel->user_id = $_SESSION["user"]["user_id"];
 
         try
@@ -19,5 +22,5 @@ $controller->get(function() use ($controller)
         }
     }
 
-    $controller->getView($vars ?? null, null);
+    $controller->getView();
 });

@@ -1,8 +1,9 @@
 <?php
+use classes\server\Controller;
 use classes\validation\GeneralValidation;
 use models\authentication\UserModel;
 
-$controller = new \classes\server\Controller();
+$controller = new Controller();
 $controller->setView("user/register");
 $controller->get(function() use ($controller)
 {
@@ -25,7 +26,7 @@ $controller->get(function() use ($controller)
         unset($_SESSION['success']);
     }
 
-    $controller->getView($vars ?? null, $errors_array ?? null);
+    $controller->getView();
 });
 
 $controller->post(function ()
