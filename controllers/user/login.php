@@ -1,6 +1,6 @@
 <?php
 use classes\server\Controller;
-use models\authentication\UserModel;
+use models\User;
 
 $controller = new Controller();
 $controller->setView("user/login");
@@ -23,7 +23,7 @@ $controller->get(function() use ($controller)
 
 $controller->post(function()
 {
-    $userModel = new UserModel();
+    $userModel = new User();
     $userModel->email = $_POST["email"];
     $userModel->password =  $_POST["password"];
 

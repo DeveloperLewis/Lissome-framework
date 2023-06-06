@@ -1,7 +1,7 @@
 <?php
 use classes\server\Controller;
 use classes\validation\General;
-use models\authentication\UserModel;
+use models\User;
 
 $controller = new Controller();
 $controller->setView("user/register");
@@ -77,7 +77,7 @@ $controller->post(function ()
     }
 
     //Create new model of user
-    $userModel = new UserModel();
+    $userModel = new User();
     $userModel->create($username, $email, $password, dateAndTime());
 
     //Store user in the database

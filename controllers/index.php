@@ -1,6 +1,6 @@
 <?php
 use classes\server\Controller;
-use models\authentication\UserModel;
+use models\User;
 
 $controller = new Controller();
 $controller->setView("index");
@@ -8,7 +8,7 @@ $controller->get(function() use ($controller)
 {
     if (isset($_SESSION["user"]))
     {
-        $userModel = new UserModel();
+        $userModel = new User();
         $userModel->user_id = $_SESSION["user"]["user_id"];
 
         try
