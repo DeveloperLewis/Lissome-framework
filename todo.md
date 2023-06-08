@@ -1,6 +1,5 @@
 # PRIORITY
 
-- General refactor
 - Convert frontend to twig
 - Update model systems
 - Update migration systems
