@@ -4,23 +4,18 @@ use classes\server\Controller;
 use models\User;
 
 $controller = new Controller();
-$controller->setView("index");
 $controller->get(function () use ($controller)
 {
-    if (isset($_SESSION["user"]))
+    $username = "michael";
+
+    if (isLoggedIn())
     {
         $userModel = new User();
-        $userModel->user_id = $_SESSION["user"]["user_id"];
-
-        try
-        {
-            $userModel->get();
-            $vars["username"] = $userModel->username;
-        } catch (Exception $e)
-        {
-            error_log($e);
-        }
+        $userModel->get($_SESSION["user"]["user_id"]);
+        $username = $userModel->username;
     }
 
-    $controller->getView();
+    echo $controller->twig->render('index.html', [
+        'username' => $username
+    ]);
 });
