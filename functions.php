@@ -1,43 +1,20 @@
 <?php
+use JetBrains\PhpStorm\NoReturn;
 
 function dateAndTime(): string
 {
-    try
-    {
-        $timezone = 'Europe/London';
-        $timestamp = time();
-        $datetime = new DateTime("now", new DateTimeZone($timezone));
-        $datetime->setTimestamp($timestamp);
-    }
-    catch (Exception $e)
-    {
-        error_log($e);
-    }
+    $timezone = 'Europe/London';
+    $timestamp = time();
+    $datetime = new DateTime("now", new DateTimeZone($timezone));
+    $datetime->setTimestamp($timestamp);
+
     return $datetime->format('d/m/Y H:i:s');
 }
 
-function redirect($url, $statusCode = 303): void
+#[NoReturn] function redirect($url, $statusCode = 303): void
 {
     header('Location: ' . $url, true, $statusCode);
     die();
-}
-
-function showErrors(array $errors_array): void
-{
-    if (empty($errors_array))
-    {
-        return;
-    }
-
-    foreach ($errors_array as $errors)
-    {
-        foreach ($errors as $error)
-        {
-            echo '<div class="text-center">';
-            echo '<small class="text-danger">' . $error . '</small>';
-            echo '</div>';
-        }
-    }
 }
 
 function showSuccess(string $success): void
@@ -73,6 +50,7 @@ function yesNoLoop($prompt): bool {
         echo "Invalid input. Please enter 'y' or 'n'." . PHP_EOL;
     }
 }
+
 //Filters any directory path to be compatible with both linux/windows.
 function universalDir(string $filePath): string
 {

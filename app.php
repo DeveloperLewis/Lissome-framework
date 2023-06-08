@@ -1,8 +1,11 @@
 <?php
 require_once('vendor/autoload.php');
 
-$router = new \classes\server\Router();
-$middleware = new classes\middleware\General();
+use classes\server\Router;
+use classes\middleware\General;
+
+$router = new Router();
+$middleware = new General();
 
 //Start global session
 session_start();

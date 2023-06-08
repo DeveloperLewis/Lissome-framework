@@ -1,4 +1,4 @@
-DirectoryIndex index.php
+DirectoryIndex app.php
 
 RewriteEngine on
 
@@ -8,4 +8,4 @@ RewriteCond %{REQUEST_FILENAME}% !-f
 ReWriteCond %{REQUEST_FILENAME}% !-d
 
 RewriteRule ^(public)($|/) - [L]
-RewriteRule ^(.*)$ index.php [QSA]
+RewriteRule ^(.*)$ app.php [QSA]

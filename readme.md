@@ -1,10 +1,12 @@
 # Square, a PHP Framework.
-A framework based on the MVC design pattern. 
+A PHP framework built for simplicity and speed.
 
 ## Features
 - Lightweight
 - User Authentication
-- Commandline commands
+- Custom Commandline System
+- Phpunit
+- Bootstrap
 
 ## Installation
 - Requires PHP 8, mysql and apache2.
