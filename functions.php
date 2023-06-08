@@ -1,4 +1,5 @@
 <?php
+
 use JetBrains\PhpStorm\NoReturn;
 
 function dateAndTime(): string
@@ -39,12 +40,16 @@ function isLoggedIn(): bool
     return true;
 }
 
-function yesNoLoop($prompt): bool {
-    while (true) {
+function yesNoLoop($prompt): bool
+{
+    while (true)
+    {
         $input = strtolower(readline($prompt));
-        if ($input === "y") {
+        if ($input === "y")
+        {
             return true;
-        } elseif ($input === "n") {
+        } elseif ($input === "n")
+        {
             return false;
         }
         echo "Invalid input. Please enter 'y' or 'n'." . PHP_EOL;

@@ -1,10 +1,11 @@
 <?php
+
 use classes\server\Controller;
 use models\User;
 
 $controller = new Controller();
 $controller->setView("user/login");
-$controller->get(function() use ($controller)
+$controller->get(function () use ($controller)
 {
     if (isset($_SESSION['errors']))
     {
@@ -21,18 +22,17 @@ $controller->get(function() use ($controller)
     $controller->getView();
 });
 
-$controller->post(function()
+$controller->post(function ()
 {
     $userModel = new User();
     $userModel->email = $_POST["email"];
-    $userModel->password =  $_POST["password"];
+    $userModel->password = $_POST["password"];
 
     //Try to log in the user
     try
     {
         $userModel->authenticate();
-    }
-    catch (Exception $e)
+    } catch (Exception $e)
     {
         error_log($e);
         $_SESSION["errors"]["login"] = ["The password or email is incorrect, please try again."];
@@ -43,8 +43,7 @@ $controller->post(function()
     try
     {
         $userModel->get();
-    }
-    catch (Exception $e)
+    } catch (Exception $e)
     {
         error_log($e);
         $_SESSION["errors"]["login"] = ["There was an internal error. Please contact site administrator"];

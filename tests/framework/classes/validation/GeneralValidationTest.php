@@ -1,6 +1,7 @@
 <?php
 
 namespace classes\validation;
+
 use PHPUnit\Framework\TestCase;
 
 class GeneralValidationTest extends TestCase
@@ -11,6 +12,7 @@ class GeneralValidationTest extends TestCase
     {
         $this->generalValidator = new General($testString);
     }
+
     public function testMinLength(): void
     {
         $this->setValidator("This is a string, greater than the min length.");

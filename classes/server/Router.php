@@ -6,15 +6,15 @@ class Router
 {
     private array $handlers = [];
     private object $notFound;
-    private const get   = 'GET';
-    private const post  = 'POST';
+    private const get = 'GET';
+    private const post = 'POST';
 
     //Handler for request type and callback
     private function createHandler($method, $path, $handler): void
     {
         $this->handlers[$method . $path] = [
-            'path'    => $path,
-            'method'  => $method,
+            'path' => $path,
+            'method' => $method,
             'handler' => $handler
         ];
     }
@@ -45,7 +45,8 @@ class Router
         $callback = null;
 
         //Verify that the url is matching one the above paths and methods and then send them the handler
-        foreach ($this->handlers as $handler) {
+        foreach ($this->handlers as $handler)
+        {
             if ($handler['path'] === $requestPath && $method === $handler['method'])
             {
                 $callback = $handler['handler'];

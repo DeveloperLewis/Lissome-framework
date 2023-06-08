@@ -10,10 +10,11 @@
 </div>
 
 <?php
-if (isloggedIn()) {
+if (isloggedIn())
+{
     echo '<p class="text-center text-white">';
     echo 'You are logged in, ';
-    echo  $vars["username"] ?? "";
+    echo $vars["username"] ?? "";
     echo '</p>';
 }
 ?>

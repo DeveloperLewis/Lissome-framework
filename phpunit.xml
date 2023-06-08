@@ -3,9 +3,9 @@
          colors="true"
          stopOnFailure="false">
 
-        <testsuites>
-            <testsuite name="framework">
-                <directory>tests/framework</directory>
-            </testsuite>
-        </testsuites>
+    <testsuites>
+        <testsuite name="framework">
+            <directory>tests/framework</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>

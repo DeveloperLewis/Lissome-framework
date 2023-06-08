@@ -15,9 +15,9 @@
                 </div>
 
                 <?php
-                    //Errors and Success Messages
-                    showErrors($errors_array ?? "");
-                    showSuccess($vars['success'] ?? "");
+                //Errors and Success Messages
+                showErrors($errors_array ?? "");
+                showSuccess($vars['success'] ?? "");
                 ?>
 
                 <form action="/user/register" method="POST">
