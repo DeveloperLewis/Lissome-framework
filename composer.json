@@ -1,16 +1,19 @@
 {
-    "autoload": {
-        "psr-4": {
-            "classes\\": "classes/",
-            "models\\": "models/",
-            "migrations\\": "migrations/"
-        },
-        "files": ["functions.php"]
+  "autoload": {
+    "psr-4": {
+      "classes\\": "classes/",
+      "models\\": "models/",
+      "migrations\\": "migrations/"
     },
-    "require": {
-      "ext-pdo": "*",
-      "ext-readline": "*",
-      "vlucas/phpdotenv": "^5.5",
-        "phpunit/phpunit": "^10.1"
-    }
+    "files": [
+      "functions.php"
+    ]
+  },
+  "require": {
+    "ext-pdo": "*",
+    "ext-readline": "*",
+    "vlucas/phpdotenv": "^5.5",
+    "phpunit/phpunit": "^10.1",
+    "twig/twig": "^3.6"
+  }
 }

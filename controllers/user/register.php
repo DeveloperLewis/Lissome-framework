@@ -1,11 +1,12 @@
 <?php
+
 use classes\server\Controller;
 use classes\validation\General;
 use models\User;
 
 $controller = new Controller();
 $controller->setView("user/register");
-$controller->get(function() use ($controller)
+$controller->get(function () use ($controller)
 {
     if (isset($_SESSION['values']))
     {
@@ -47,7 +48,7 @@ $controller->post(function ()
 
     //Username validations
     $usernameValidator = new General();
-    $usernameValidator->minLength($username,3 );
+    $usernameValidator->minLength($username, 3);
     $usernameValidator->maxLength($username, 30);
     $usernameValidator->LettersAndDigitsOnly($username);
     $usernameErrors = $usernameValidator->getErrors();
@@ -84,8 +85,7 @@ $controller->post(function ()
     try
     {
         $userModel->store();
-    }
-    catch (Exception $e)
+    } catch (Exception $e)
     {
         error_log($e);
         $_SESSION['errors']['store_errors'] = [$e];

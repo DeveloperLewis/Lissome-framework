@@ -1,11 +1,13 @@
 <?php
 
 namespace classes\server;
+
 use PHPUnit\Framework\TestCase;
 
 class ControllerTest extends TestCase
 {
     private Controller $controller;
+
     private function getController()
     {
         $this->controller = new Controller();

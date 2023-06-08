@@ -14,19 +14,21 @@
                 </li>
 
                 <?php
-                    if (isLoggedIn()) {
-                        echo '<li class="nav-item text-center">';
-                        echo    '<a class="nav-link" href="/user/logout">Logout</a>';
-                        echo '</li>';
-                    } else {
-                        echo '<li class="nav-item text-center">';
-                        echo    '<a class="nav-link" href="/user/login">Login</a>';
-                        echo '</li>';
+                if (isLoggedIn())
+                {
+                    echo '<li class="nav-item text-center">';
+                    echo '<a class="nav-link" href="/user/logout">Logout</a>';
+                    echo '</li>';
+                } else
+                {
+                    echo '<li class="nav-item text-center">';
+                    echo '<a class="nav-link" href="/user/login">Login</a>';
+                    echo '</li>';
 
-                        echo '<li class="nav-item text-center">';
-                        echo    '<a class="nav-link" href="/user/register">Register</a>';
-                        echo '</li>';
-                    }
+                    echo '<li class="nav-item text-center">';
+                    echo '<a class="nav-link" href="/user/register">Register</a>';
+                    echo '</li>';
+                }
                 ?>
             </ul>
         </div>

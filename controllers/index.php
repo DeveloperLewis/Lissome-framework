@@ -1,10 +1,11 @@
 <?php
+
 use classes\server\Controller;
 use models\User;
 
 $controller = new Controller();
 $controller->setView("index");
-$controller->get(function() use ($controller)
+$controller->get(function () use ($controller)
 {
     if (isset($_SESSION["user"]))
     {
@@ -15,8 +16,7 @@ $controller->get(function() use ($controller)
         {
             $userModel->get();
             $vars["username"] = $userModel->username;
-        }
-        catch (Exception $e)
+        } catch (Exception $e)
         {
             error_log($e);
         }

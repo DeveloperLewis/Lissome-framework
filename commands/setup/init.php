@@ -3,16 +3,15 @@
 use classes\server\Env;
 use migrations\User;
 
-$env        = new Env();
-$host       = $env->server;
-$username   = $env->username;
-$password   = $env->password;
+$env = new Env();
+$host = $env->server;
+$username = $env->username;
+$password = $env->password;
 
 try
 {
     $pdo = new PDO("mysql:host=$host", $username, $password);
-}
-catch (PDOException $e)
+} catch (PDOException $e)
 {
     die("DB ERROR: " . $e->getMessage());
 }
@@ -23,10 +22,9 @@ try
     $stmt = $pdo->prepare("CREATE DATABASE IF NOT EXISTS $env->db");
     if (!$stmt->execute())
     {
-        throw new \Exception("Failed to create the database.");
+        throw new Exception("Failed to create the database.");
     }
-}
-catch (Exception $e)
+} catch (Exception $e)
 {
     error_log($e);
     echo "There was an error creating the database, look at apache logs for more information.";
@@ -39,8 +37,7 @@ try
     $user_migrations->createTable();
     $user_migrations->alterPrimaryKey();
     $user_migrations->alterAutoIncrement();
-}
-catch (Exception $e)
+} catch (Exception $e)
 {
     error_log($e);
     echo "There was an error creating the users table, look at apache logs for more information.";

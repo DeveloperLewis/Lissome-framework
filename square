@@ -9,24 +9,16 @@ $colour_red = "\033[32m";
 if (!isset($cmds[1]))
 {
     echo "Use " . $colour_red . "php square help" . $colour_reset . " for a list of commands.";
-}
-
-elseif($cmds[1] == "help")
+} elseif ($cmds[1] == "help")
 {
     require_once("commands/help.php");
-}
-
-elseif ($cmds[1] == "env")
+} elseif ($cmds[1] == "env")
 {
     require_once("commands/setup/env.php");
-}
-
-elseif ($cmds[1] == "init")
+} elseif ($cmds[1] == "init")
 {
     require_once("commands/setup/init.php");
-}
-
-elseif ($cmds[1] == "tests")
+} elseif ($cmds[1] == "tests")
 {
     require_once("commands/general/tests.php");
 }

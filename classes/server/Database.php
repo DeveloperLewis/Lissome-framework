@@ -1,5 +1,7 @@
 <?php
+
 namespace classes\server;
+
 use PDO;
 use PDOException;
 
@@ -7,9 +9,9 @@ class Database
 {
     private object $pdo;
     private array $options = [
-        \PDO::ATTR_ERRMODE              => \PDO::ERRMODE_EXCEPTION,
-        \PDO::ATTR_DEFAULT_FETCH_MODE   => \PDO::FETCH_ASSOC,
-        \PDO::ATTR_EMULATE_PREPARES     => false
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false
     ];
 
     //Connect to database when object is created
@@ -21,8 +23,7 @@ class Database
         try
         {
             $this->pdo = new PDO($dsn, $env->username, $env->password, $this->options);
-        }
-        catch (PDOException $e)
+        } catch (PDOException $e)
         {
             throw new PDOException($e->getMessage(), $e->getCode());
         }

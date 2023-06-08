@@ -1,5 +1,7 @@
 <?php
+
 namespace classes\validation;
+
 use classes\server\Database;
 
 class General
@@ -9,7 +11,7 @@ class General
     //Validate any empty inputs from array
     public function emptyInputs(array $inputs): void
     {
-        foreach($inputs as $key => $input)
+        foreach ($inputs as $key => $input)
         {
             if (empty($input))
             {
@@ -49,7 +51,7 @@ class General
     public function isEmailUnique($email): void
     {
         $database = new Database();
-        $stmt = $database->getPdo()->prepare("SELECT email FROM users WHERE email = ?");;
+        $stmt = $database->getPdo()->prepare("SELECT email FROM users WHERE email = ?");
 
         if (!$stmt->execute([$email]))
         {

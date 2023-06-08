@@ -1,8 +1,8 @@
 <?php
 require_once('vendor/autoload.php');
 
-use classes\server\Router;
 use classes\middleware\General;
+use classes\server\Router;
 
 $router = new Router();
 $middleware = new General();

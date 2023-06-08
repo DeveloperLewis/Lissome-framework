@@ -1,5 +1,7 @@
 <?php
+
 namespace migrations;
+
 use classes\server\Database;
 use Exception;
 
