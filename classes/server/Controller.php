@@ -4,6 +4,7 @@ namespace classes\server;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use Twig\TwigFunction;
 
 class Controller
 {
@@ -14,6 +15,10 @@ class Controller
     {
         $loader = new FilesystemLoader(universalDir('views'));
         $this->twig = new Environment($loader);
+
+        //Pass down isLoggedIn function into twig engine
+        $function = new TwigFunction('isLoggedIn', isLoggedIn());
+        $this->twig->addFunction($function);
     }
 
     //Assign callback to a get request

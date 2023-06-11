@@ -6,9 +6,14 @@ use classes\server\Database;
 
 class General
 {
-    readonly private array $errors;
+    private array $errors;
 
     //Validate any empty inputs from array
+    public function __construct()
+    {
+        $this->errors = [];
+    }
+
     public function emptyInputs(array $inputs): void
     {
         foreach ($inputs as $key => $input)

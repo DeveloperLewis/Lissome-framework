@@ -39,7 +39,7 @@ class User
         }
     }
 
-    public function authenticate(): void
+    public function authenticate(): int
     {
         $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $this->database->getPdo()->prepare($sql);
@@ -59,7 +59,7 @@ class User
             throw new Exception("Password did not match hashed password in database.");
         }
 
-        $this->user_id = $user["user_id"];
+        return $user["user_id"];
     }
 
     public function get(int $user_id): void

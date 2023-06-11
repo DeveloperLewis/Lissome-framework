@@ -6,7 +6,7 @@ use models\User;
 $controller = new Controller();
 $controller->get(function () use ($controller)
 {
-    $username = "michael";
+    $username = null;
 
     if (isLoggedIn())
     {
@@ -15,7 +15,7 @@ $controller->get(function () use ($controller)
         $username = $userModel->username;
     }
 
-    echo $controller->twig->render('index.html', [
+    echo $controller->twig->render('index.twig', [
         'username' => $username
     ]);
 });
