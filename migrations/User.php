@@ -3,9 +3,10 @@
 namespace migrations;
 
 use classes\server\Database;
+use classes\server\interfaces\Migration;
 use Exception;
 
-class User
+class User implements Migration
 {
     private object $pdo;
 
@@ -15,16 +16,25 @@ class User
         $this->pdo = $database->getPdo();
     }
 
-    //Create the user's table
-    public function createTable(): void
+    public function runMigrations(): void
     {
-        $stmt = $this->pdo->prepare("CREATE TABLE Users (
+        $this->createTable();
+        $this->alterAutoIncrement();
+    }
+
+    //Create the user's table
+    private function createTable(): void
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS Users  (
             user_id int not null,
             username varchar(35) not null,
             email varchar(254) not null,  
             password varchar(150) not null,
-            account_creation_date varchar(20) not null
-        )");
+            account_creation_date varchar(20) not null,
+            PRIMARY KEY (user_id)
+        )";
+
+        $stmt = $this->pdo->prepare($sql);
 
         if (!$stmt->execute())
         {
@@ -32,28 +42,19 @@ class User
         }
     }
 
-    //Set the user_id as the primary key
-    public function alterPrimaryKey(): void
-    {
-        $stmt = $this->pdo->prepare("alter table users
-            add constraint users_pk
-            primary key (user_id);");
-
-        if (!$stmt->execute())
-        {
-            throw new Exception("Failed to alter the user table and make the user_id the primary key.");
-        }
-    }
-
     //Set the user_id to auto increment
-    public function alterAutoIncrement(): string
+    private function alterAutoIncrement(): void
     {
-        $stmt = $this->pdo->prepare("alter table users
-            modify user_id int auto_increment;");
+        $sql = "alter table users
+            modify user_id int auto_increment;";
+
+
+        $stmt = $this->pdo->prepare($sql);
 
         if (!$stmt->execute())
         {
             throw new Exception("Failed to alter the user table and make the user_id auto incrementing");
         }
     }
+
 }
