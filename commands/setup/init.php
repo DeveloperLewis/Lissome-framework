@@ -34,9 +34,7 @@ try
 $user_migrations = new User();
 try
 {
-    $user_migrations->createTable();
-    $user_migrations->alterPrimaryKey();
-    $user_migrations->alterAutoIncrement();
+    $user_migrations->runMigrations();
 } catch (Exception $e)
 {
     error_log($e);
