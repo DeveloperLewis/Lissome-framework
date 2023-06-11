@@ -2,9 +2,24 @@
 
 namespace classes\server;
 
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
 class Controller
 {
+    public Environment $twig;
     protected string $view;
+
+    public function __construct()
+    {
+        $loader = new FilesystemLoader(universalDir('views'));
+        $this->twig = new Environment($loader);
+
+        if (isset($_SESSION["user"]["user_id"]))
+        {
+            $this->twig->addGlobal("loggedIn", true);
+        }
+    }
 
     //Assign callback to a get request
     public function get(callable $callback): void
@@ -24,15 +39,5 @@ class Controller
         }
     }
 
-    //Set a view for the controller to use
-    public function setView(string $viewLocation): void
-    {
-        $this->view = $viewLocation;
-    }
 
-    //Get the view from views directory
-    public function getView(): void
-    {
-        require_once('views/' . $this->view . '.php');
-    }
 }

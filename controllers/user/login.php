@@ -4,9 +4,11 @@ use classes\server\Controller;
 use models\User;
 
 $controller = new Controller();
-$controller->setView("user/login");
 $controller->get(function () use ($controller)
 {
+    $success = null;
+    $errorsArray = [];
+
     if (isset($_SESSION['errors']))
     {
         $errorsArray = $_SESSION['errors'];
@@ -15,14 +17,17 @@ $controller->get(function () use ($controller)
 
     if (isset($_SESSION['success']))
     {
-        $vars['success'] = $_SESSION['success'];
+        $success = $_SESSION['success'];
         unset($_SESSION['success']);
     }
 
-    $controller->getView();
+    echo $controller->twig->render("user/login.twig", [
+        'success' => $success,
+        'errorsArray' => $errorsArray
+    ]);
 });
 
-$controller->post(function ()
+$controller->post(function () use ($controller)
 {
     $userModel = new User();
     $userModel->email = $_POST["email"];
@@ -31,18 +36,17 @@ $controller->post(function ()
     //Try to log in the user
     try
     {
-        $userModel->authenticate();
+        $userId = $userModel->authenticate();
     } catch (Exception $e)
     {
         error_log($e);
         $_SESSION["errors"]["login"] = ["The password or email is incorrect, please try again."];
         redirect("/user/login");
     }
-
     //Try to retrieve the user
     try
     {
-        $userModel->get();
+        $userModel->get($userId);
     } catch (Exception $e)
     {
         error_log($e);

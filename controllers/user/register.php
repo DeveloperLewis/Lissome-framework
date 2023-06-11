@@ -5,35 +5,51 @@ use classes\validation\General;
 use models\User;
 
 $controller = new Controller();
-$controller->setView("user/register");
 $controller->get(function () use ($controller)
 {
+    $username = null;
+    $email = null;
+    $errorsArray = [];
+    $success = null;
+
+
     if (isset($_SESSION['values']))
     {
-        $vars["username"] = $_SESSION['values']['username'];
-        $vars["email"] = $_SESSION['values']['email'];
+        $username = $_SESSION['values']['username'];
+        $email = $_SESSION['values']['email'];
         unset($_SESSION['values']);
     }
 
     if (isset($_SESSION['errors']))
     {
-        $errors_array = $_SESSION['errors'];
+        $errorsArray = $_SESSION['errors'];
         unset($_SESSION['errors']);
     }
 
     if (isset($_SESSION['success']))
     {
-        $vars["success"] = $_SESSION['success'];
+        $success = $_SESSION['success'];
         unset($_SESSION['success']);
     }
 
-    $controller->getView();
+    echo $controller->twig->render('user/register.twig', [
+        'username' => $username,
+        'email' => $email,
+        'errorsArray' => $errorsArray,
+        'success' => $success
+
+    ]);
 });
 
 $controller->post(function ()
 {
+    if (!isset($_POST["checkbox"]))
+    {
+        redirect("/user/register");
+    }
 
-    $postArray = [$_POST["username"], $_POST["email"], $_POST["password"], $_POST["repeat-password"], $_POST["checkbox"]];
+
+    $postArray = [$_POST["username"], $_POST["email"], $_POST["password"], $_POST["repeatPassword"]];
 
     //Empty validations
     $emptyValidator = new General();
@@ -44,7 +60,7 @@ $controller->post(function ()
     $username = $_POST["username"];
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $repeat_password = $_POST["repeat-password"];
+    $repeat_password = $_POST["repeatPassword"];
 
     //Username validations
     $usernameValidator = new General();
@@ -69,11 +85,15 @@ $controller->post(function ()
     $passwordValidator->passwordRequirements($password);
     $passwordErrors = $passwordValidator->getErrors();
 
+
     //Start sessions for any errors and return to form with errors
     if (!empty($emptyErrors) || !empty($usernameErrors) || !empty($emailErrors) || !empty($passwordErrors))
     {
         $_SESSION['values']['username'] = $username;
         $_SESSION['values']['email'] = $email;
+
+        $errorsArray = array_merge($emptyErrors, $usernameErrors, $emailErrors, $passwordErrors);
+        $_SESSION['errors'] = $errorsArray;
         redirect("/user/register");
     }
 

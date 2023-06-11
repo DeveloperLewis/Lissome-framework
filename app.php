@@ -18,7 +18,7 @@ $router->get('/', function ()
 
 $router->notFound(function ()
 {
-    require_once('views/404.php');
+    require_once('controllers/404.php');
 });
 
 //Routing Files
