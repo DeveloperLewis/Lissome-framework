@@ -72,7 +72,7 @@ class General
     }
 
     //Validate that only letters and digits may be entered
-    public function LettersAndDigitsOnly($input): void
+    public function lettersAndDigitsOnly($input): void
     {
         if (preg_match('/[^A-Za-z\d]/', $input))
         {
