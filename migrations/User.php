@@ -19,7 +19,6 @@ class User implements Migration
     public function runMigrations(): void
     {
         $this->createTable();
-        $this->alterPrimaryKey();
         $this->alterAutoIncrement();
     }
 
@@ -31,7 +30,8 @@ class User implements Migration
             username varchar(35) not null,
             email varchar(254) not null,  
             password varchar(150) not null,
-            account_creation_date varchar(20) not null
+            account_creation_date varchar(20) not null,
+            PRIMARY KEY (user_id)
         )";
 
         $stmt = $this->pdo->prepare($sql);
@@ -39,21 +39,6 @@ class User implements Migration
         if (!$stmt->execute())
         {
             throw new Exception("Failed to create user table.");
-        }
-    }
-
-    //Set the user_id as the primary key
-    private function alterPrimaryKey(): void
-    {
-        $sql = "alter table users
-            add constraint users_pk
-            primary key (user_id);";
-
-        $stmt = $this->pdo->prepare($sql);
-
-        if (!$stmt->execute())
-        {
-            throw new Exception("Failed to alter the user table and make the user_id the primary key.");
         }
     }
 

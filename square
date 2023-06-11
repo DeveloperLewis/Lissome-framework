@@ -21,4 +21,7 @@ if (!isset($cmds[1]))
 } elseif ($cmds[1] == "tests")
 {
     require_once("commands/general/tests.php");
+} elseif ($cmds[1] == "migrate")
+{
+    require_once("commands/general/migrate.php");
 }
