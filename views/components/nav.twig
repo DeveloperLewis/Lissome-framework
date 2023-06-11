@@ -13,7 +13,7 @@
                     <a class="nav-link" href="/docs">Docs</a>
                 </li>
 
-                {% if isLoggedIn %}
+                {% if loggedIn == true %}
                     <li class="nav-item text-center">
                         <a class="nav-link" href="/user/logout">Logout</a>
                     </li>
@@ -26,6 +26,7 @@
                         <a class="nav-link" href="/user/register">Register</a>
                     </li>
                 {% endif %}
+
             </ul>
         </div>
     </div>

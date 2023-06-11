@@ -27,7 +27,7 @@ $controller->get(function () use ($controller)
     ]);
 });
 
-$controller->post(function ()
+$controller->post(function () use ($controller)
 {
     $userModel = new User();
     $userModel->email = $_POST["email"];
@@ -43,7 +43,6 @@ $controller->post(function ()
         $_SESSION["errors"]["login"] = ["The password or email is incorrect, please try again."];
         redirect("/user/login");
     }
-
     //Try to retrieve the user
     try
     {
