@@ -54,8 +54,7 @@ class GeneralTest extends TestCase
     {
         $this->validator->isEmailUnique("testemail@testinginput.goodtests");
         $errorArray = $this->validator->getErrors();
-        $result = $errorArray[0];
-        $this->assertEmpty($result);
+        $this->assertEmpty($errorArray);
     }
 
     public function testLettersAndDigitsOnly(): void
@@ -78,8 +77,7 @@ class GeneralTest extends TestCase
     {
         $this->validator->passwordRequirements("Password1;");
         $errorArray = $this->validator->getErrors();
-        $result = $errorArray[0];
-        $this->assertEmpty($result);
+        $this->assertEmpty($errorArray);
     }
 
     public function testGetErrors(): void
