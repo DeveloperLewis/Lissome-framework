@@ -30,13 +30,11 @@ $controller->get(function () use ($controller)
 $controller->post(function () use ($controller)
 {
     $userModel = new User();
-    $userModel->email = $_POST["email"];
-    $userModel->password = $_POST["password"];
 
     //Try to log in the user
     try
     {
-        $userId = $userModel->authenticate();
+        $userId = $userModel->authenticate($_POST["email"], $_POST["password"]);
     } catch (Exception $e)
     {
         error_log($e);

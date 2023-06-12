@@ -39,12 +39,12 @@ class User
         }
     }
 
-    public function authenticate(): int
+    public function authenticate($email, $password): int
     {
         $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $this->database->getPdo()->prepare($sql);
 
-        if (!$stmt->execute([$this->email]))
+        if (!$stmt->execute([$email]))
         {
             throw new Exception("SQL statement could not be executed");
         }
@@ -54,7 +54,7 @@ class User
             throw new Exception("User could not be fetched from the database.");
         }
 
-        if (!password_verify($this->password, $user["password"]))
+        if (!password_verify($password, $user["password"]))
         {
             throw new Exception("Password did not match hashed password in database.");
         }
@@ -82,5 +82,16 @@ class User
         $this->password = $user["password"];
         $this->account_creation_date = $user["account_creation_date"];
         $this->user_id = $user["user_id"];
+    }
+
+    public function delete($userId): void
+    {
+        $sql = "DELETE FROM users WHERE user_id = ?";
+        $stmt = $this->database->getPdo()->prepare($sql);
+
+        if (!$stmt->execute([$userId]))
+        {
+            throw new Exception("Sql statement failed to delete user");
+        }
     }
 }
