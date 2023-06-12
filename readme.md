@@ -7,7 +7,8 @@ A PHP framework built for simplicity and speed.
 - Lightweight
 - User Authentication
 - Custom Commandline System
-- Phpunit
+- Twig templating
+- Phpunit testing
 - Bootstrap
 
 ## Installation
