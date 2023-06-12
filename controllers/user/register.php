@@ -66,7 +66,7 @@ $controller->post(function ()
     $usernameValidator = new General();
     $usernameValidator->minLength($username, 3);
     $usernameValidator->maxLength($username, 30);
-    $usernameValidator->LettersAndDigitsOnly($username);
+    $usernameValidator->lettersAndDigitsOnly($username);
     $usernameErrors = $usernameValidator->getErrors();
 
     //Email validations

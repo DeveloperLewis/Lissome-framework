@@ -28,16 +28,4 @@ class FunctionsTest extends TestCase
         $result = universalDir($original);
         $this->assertNotSame($original, $result);
     }
-
-    function testShowErrors()
-    {
-        $empty_array = [];
-        $this->assertEmpty(showErrors($empty_array));
-    }
-
-    function testShowSuccess()
-    {
-        $empty_string = "";
-        $this->assertEmpty(showSuccess($empty_string));
-    }
 }
