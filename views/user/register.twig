@@ -14,44 +14,57 @@
                     {% if errorsArray is not empty %}
                         {% for errorArray in errorsArray %}
                             {% for error in errorArray %}
-                                {{ error }}
+                                <div class="alert alert-warning" role="alert">
+                                    {{ error }}
+                                </div>
                             {% endfor %}
                         {% endfor %}
                     {% endif %}
 
-                    {% if success %}
-                        {{ success }}
-                    {% endif %}
-
                     <form action="/user/register" method="POST">
                         <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
+                            <label for="username" class="form-label">Username *</label>
                             <input type="text" class="form-control dark-input" name="username" id="username"
-                                   value="{{ username ? "" }}">
+                                   value="{{ username ? "" }}"
+                                   required
+                                   minlength="3"
+                                   maxlength="30"
+                                   pattern="[a-zA-Z0-9]+"
+                                   title="Username can only include letters and numbers"
+                            >
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
+                            <label for="email" class="form-label">Email Address *</label>
                             <input type="email" class="form-control dark-input" name="email" id="email"
-                                   value="{{ email ? "" }}">
+                                   value="{{ email ? "" }}" required>
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control dark-input" name="password" id="password">
+                            <label for="password" class="form-label">Password *</label>
+                            <input type="password" class="form-control dark-input" name="password" id="password"
+                                   required
+                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,128}"
+                                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 to 128 characters">
+                            <div class="invalid-feedback">Passwords must match</div>
                         </div>
                         <div class="mb-3">
-                            <label for="repeat-password" class="form-label">Repeat Password</label>
+                            <label for="repeat-password" class="form-label">Repeat Password *</label>
                             <input type="password" class="form-control dark-input" name="repeatPassword"
-                                   id="repeatPassword">
+                                   id="repeatPassword"
+                                   required
+                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,128}"
+                                   title="Passwords must match">
+                            <div class="invalid-feedback">Passwords must match</div>
                         </div>
                         <div class="form-check d-flex justify-content-center">
                             <input class="form-check-input" type="checkbox" value="" name="checkbox" id="checkbox">
                             <label class="form-check-label mx-1" for="checkbox">By signing up you agree to our
-                                <a href="/privacy-policy">Privacy Policy</a>
+                                <a href="/privacy-policy">Privacy Policy</a> *
                             </label>
                         </div>
 
                         <div class="mt-3 mb-2 d-flex justify-content-center">
-                            <button class="btn btn-primary flex-fill" type="submit">Create Account</button>
+                            <button class="btn btn-primary flex-fill" type="button" id="submitButton">Create Account
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -61,4 +74,46 @@
 
         </div>
     </div>
+
+    <script>
+        const password = document.getElementById("password");
+        const repeatPassword = document.getElementById("repeatPassword");
+        const checkbox = document.getElementById("checkbox");
+        const submitButton = document.getElementById("submitButton");
+
+        let typingTimeoutTimer;
+
+        checkbox.onclick = function () {
+            if (checkbox.checked === true) {
+                submitButton.type = "submit";
+            } else {
+                submitButton.type = "button";
+            }
+        }
+
+        repeatPassword.onkeyup = function () {
+            typingTimeout(typingTimeoutTimer, checkPasswordsMatch)
+        }
+
+        //Check that the user is typing
+        function typingTimeout(typingTimeout, callback) {
+            if (typingTimeout !== undefined) {
+                clearTimeout(typingTimeout);
+            }
+            typingTimeout = setTimeout(callback, 250);
+        }
+
+        //Check that passwords match and add bootstrap is-invalid to both.
+        function checkPasswordsMatch() {
+            if (password.value !== repeatPassword.value) {
+                password.classList.add("is-invalid")
+                repeatPassword.classList.add("is-invalid")
+                console.log(password.value)
+                console.log(repeatPassword.value)
+            } else {
+                password.classList.remove("is-invalid")
+                repeatPassword.classList.remove("is-invalid")
+            }
+        }
+    </script>
 {% endblock %}
