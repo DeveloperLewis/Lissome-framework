@@ -92,11 +92,6 @@ class General
     //Validate the defined parameters that a password requires
     public function passwordRequirements($password): void
     {
-        if (preg_match('/[^A-Za-z\d@$!%*?&;:^#]/', $password))
-        {
-            $this->errors[] = ["Password can only contain letters, numbers and @$!%*?&;:&%^# special characters"];
-        }
-
         if (!preg_match('/\d+/', $password))
         {
             $this->errors[] = ["Password must contain at least 1 number"];
@@ -110,11 +105,6 @@ class General
         if (!preg_match('/[a-z]+/', $password))
         {
             $this->errors[] = ["Password must contain at least 1 lowercase letter"];
-        }
-
-        if (!preg_match('/[@$!%*?&;:^#]/', $password))
-        {
-            $this->errors[] = ["Password must contain at least 1 special character: @$!%*?&;:&%^#"];
         }
     }
 

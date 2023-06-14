@@ -26,12 +26,6 @@ $controller->get(function () use ($controller)
         unset($_SESSION['errors']);
     }
 
-    if (isset($_SESSION['success']))
-    {
-        $success = $_SESSION['success'];
-        unset($_SESSION['success']);
-    }
-
     echo $controller->twig->render('user/register.twig', [
         'username' => $username,
         'email' => $email,
@@ -112,6 +106,6 @@ $controller->post(function ()
         redirect("/user/register");
     }
 
-    $_SESSION['success'] = 'Successfully created account. <a href="/user/login" class="remove-underline">Login here.</a>';
-    redirect("/user/register");
+    $_SESSION['success'] = 'Successfully created account. You can now log in.';
+    redirect("/user/login");
 });
