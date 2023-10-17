@@ -23,6 +23,5 @@ $router->notFound(function ()
 
 //Routing Files
 require_once('routes/user.php');
-require_once('routes/other.php');
 
 $router->run();
